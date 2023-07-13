@@ -1,0 +1,20 @@
+<header class="header">
+    <div class="logo">
+      <a [routerLink]="['/home']" routerLinkActive="router-link-active" ><img src="../../assets/images/headerlogo.png" alt="Logo" class="img"></a>
+    </div>
+    <nav class="navbar">
+      <ul class="navbar-list">
+        <li class="navbar-item"><a routerLink="/" routerLinkActive="active">Home</a></li>
+        <li class="navbar-item"><a routerLink="/add-staff" routerLinkActive="active">Add Staff</a></li>
+        <li class="navbar-item"><a routerLink="/audit-log" routerLinkActive="active">Audit Log</a></li>
+        <li class="navbar-item"><a routerLink="/" routerLinkActive="active">AI Tools</a></li>
+        <li class="navbar-item"><a routerLink="/tasks" routerLinkActive="active">Tasks</a></li>
+        <li class="navbar-item">
+          <button mat-icon-button class="user-button" routerLink="/login">
+            <mat-icon>account_circle</mat-icon>
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </header>
+  

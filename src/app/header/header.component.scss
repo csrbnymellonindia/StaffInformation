@@ -1,0 +1,53 @@
+@import '../../assets/styles/palette.scss';
+
+.header {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    background-color: map_get($colors, lf-bg);
+    color: white;
+  
+    .logo {
+      flex: 1;
+      .img{
+        width: 400px;
+      }
+    }
+  
+    .navbar {
+      display: flex;
+      align-items: center;
+  
+      .navbar-list {
+        display: flex;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+  
+        .navbar-item {
+          margin-right: 16px;
+  
+          a {
+            text-decoration: none;
+            color: white;
+          }
+        }
+  
+        .user-button {
+          border: none;
+          background-color: transparent;
+          padding: 0;
+  
+          mat-icon {
+            color: white;
+            font-size: 24px;
+          }
+        }
+      }
+    }
+  }
+  
+  .active {
+    font-weight: bold;
+  }
+  

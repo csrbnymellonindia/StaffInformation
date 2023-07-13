@@ -1,0 +1,21 @@
+@import '../../assets/styles/palette.scss';
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+    background-color: map_get($colors, lf-bg);
+    color: white;
+  
+    .school-logo {
+      width: 40px;
+      height: 40px;
+      margin-right: 8px;
+    }
+  
+    .school-name {
+      font-size: 16px;
+      font-weight: bold;
+    }
+  }
+  
