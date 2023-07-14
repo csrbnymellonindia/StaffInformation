@@ -8,6 +8,7 @@ public class JwtRequest implements Serializable {
 	
 	private String username;
 	private String password;
+	private String type;
 	
 	//default constructor for JSON Parsing
 	public JwtRequest()
@@ -34,4 +35,14 @@ public class JwtRequest implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+
 }

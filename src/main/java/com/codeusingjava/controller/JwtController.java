@@ -53,4 +53,24 @@ public class JwtController {
 			throw new Exception("INVALID_CREDENTIALS", e);
 		}
 	}
+	@RequestMapping(value = "/admin_authentication", method = RequestMethod.POST)
+	public boolean adminAuthentication(@RequestBody JwtRequest authenticationRequest) throws Exception {
+
+		if(authenticationRequest.getType().compareTo("admin")==0){
+			return true;
+		}
+		else return false;
+
+
+	}
+	@RequestMapping(value = "/teacher_authentication", method = RequestMethod.POST)
+	public boolean teacherAuthentication(@RequestBody JwtRequest authenticationRequest) throws Exception {
+
+		if(authenticationRequest.getType().compareTo("teacher")==0){
+			return true;
+		}
+		else return false;
+
+
+	}
 }

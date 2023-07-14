@@ -14,8 +14,14 @@ public class UserDao {
     @Column
     private String password;
 
+    @Column
+    private String type;
+
     public String getUsername() {
         return username;
+    }
+
+    public UserDao() {
     }
 
     public void setUsername(String username) {
@@ -25,10 +31,19 @@ public class UserDao {
     public String getPassword() {
         return password;
     }
-
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+
 
 }
 
