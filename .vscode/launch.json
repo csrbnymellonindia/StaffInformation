@@ -1,0 +1,21 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "StaffInformationApplication",
+            "request": "launch",
+            "mainClass": "StaffInformationApplication",
+            "projectName": "StaffInformation"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-StaffInformationApplication<StaffInformation>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.hackathon.StaffInformation.StaffInformationApplication",
+            "projectName": "StaffInformation",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
