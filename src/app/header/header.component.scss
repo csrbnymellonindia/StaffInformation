@@ -38,16 +38,17 @@
           background-color: transparent;
           padding: 0;
   
-          mat-icon {
-            color: white;
-            font-size: 24px;
-          }
+          
         }
       }
     }
   }
-  
+  .mat-icon {
+    color: white;
+    transform: scale(2);
+  }
   .active {
     font-weight: bold;
+    text-decoration: underline;
   }
   
