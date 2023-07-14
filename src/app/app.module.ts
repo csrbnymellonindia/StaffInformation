@@ -19,6 +19,8 @@ import { FormsModule } from '@angular/forms'
 import {MatMenuModule} from '@angular/material/menu';
 import { AgGridModule } from 'ag-grid-angular';
 import { MatInputModule } from '@angular/material/input';
+import { LogoutComponent } from './logout/logout.component';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,9 +31,11 @@ import { MatInputModule } from '@angular/material/input';
     AddStaffComponent,
     AuditLogComponent,
     TasksComponent,
-    ActionCellRendererComponent
+    ActionCellRendererComponent,
+    LogoutComponent
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     MatInputModule,
     MatMenuModule,

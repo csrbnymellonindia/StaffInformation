@@ -22,9 +22,9 @@
         <a routerLink="/tasks" routerLinkActive="active">Tasks</a>
       </li>
       <li class="navbar-item">
-        <button mat-button [matMenuTriggerFor]="menu"><mat-icon class="user-profile-icon">account_circle</mat-icon></button>
+        <a mat-button [matMenuTriggerFor]="menu"><mat-icon class="user-profile-icon">account_circle</mat-icon></a>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item >Logout</button>
+          <button mat-menu-item (click)="logout()" >Logout</button>
         </mat-menu>
       </li>
     </ul>

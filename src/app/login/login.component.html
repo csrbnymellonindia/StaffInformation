@@ -20,6 +20,7 @@
             <button mat-raised-button color="primary" type="submit">Login</button>
 
           </div>
+          <h5 class="error" *ngIf="message">{{message}}</h5>
         </form>
       </mat-card-content>
     </mat-card>
