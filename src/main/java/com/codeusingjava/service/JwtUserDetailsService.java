@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
@@ -37,4 +38,10 @@ public class JwtUserDetailsService implements UserDetailsService {
 		newUser.setType(user.getType());
 		return userDao.save(newUser);
 	}
+
+	public String getUserType(String username){
+		UserDao user=userDao.findByUsername(username);
+		return user.getType();
+	}
+
 }
