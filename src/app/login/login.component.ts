@@ -5,6 +5,7 @@ import { EnvService } from '../env.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   message:any;
-  constructor(private formBuilder: FormBuilder,private httpclient:HttpClient,private envservice:EnvService,private router:Router) { }
+  constructor(private formBuilder: FormBuilder,private httpclient:HttpClient,private envservice:EnvService,private router:Router,private dialog:MatDialog) { }
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -39,7 +40,11 @@ export class LoginComponent implements OnInit {
       }).subscribe((res:any)=>{
        sessionStorage.setItem('token',res.token);
        sessionStorage.setItem('username',username);
+       this.dialog.open(SuccessDialog,{disableClose:true});
+        setTimeout(()=>{
+          this.dialog.closeAll()
         this.router.navigate(['/home'])
+        },2000)
       },(err:any)=>{
         this.loginForm.get('password')?.setErrors({serverError:true})
         this.loginForm.get('username')?.setErrors({serverError:true})
@@ -49,4 +54,14 @@ export class LoginComponent implements OnInit {
       });
   }
 }
+}
+
+@Component({
+  selector: 'dialog-data-example-dialog',
+  template: `<h3 mat-dialog-title style="color: green;">Successfully logged in</h3>
+  <div mat-dialog-content>
+    Welcome to Teacher Management System!
+  </div>`,
+})
+export class SuccessDialog {
 }
