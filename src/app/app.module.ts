@@ -21,6 +21,12 @@ import { AgGridModule } from 'ag-grid-angular';
 import { MatInputModule } from '@angular/material/input';
 import { LogoutComponent } from './logout/logout.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AddStudentComponent } from './add-student/add-student.component';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatDatepickerModule } from '@angular/material/datepicker'
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select'
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +38,8 @@ import { HttpClientModule } from '@angular/common/http';
     AuditLogComponent,
     TasksComponent,
     ActionCellRendererComponent,
-    LogoutComponent
+    LogoutComponent,
+    AddStudentComponent
   ],
   imports: [
     HttpClientModule,
@@ -49,6 +56,10 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     MatButtonModule,
     MatInputModule,
+    MatTabsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSelectModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

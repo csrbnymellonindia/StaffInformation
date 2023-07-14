@@ -1,0 +1,219 @@
+<div class="add-student">
+    <mat-tab-group>
+      <mat-tab label="General Information">
+        <h2>General Information</h2>
+        <form [formGroup]="generalInfoForm">
+          <div class="form-row">
+            <div class="form-column">
+              <mat-form-field>
+                <mat-label>First Name</mat-label>
+                <input matInput formControlName="firstName" required>
+              </mat-form-field>
+  
+              <mat-form-field>
+                <mat-label>Last Name</mat-label>
+                <input matInput formControlName="lastName" required>
+              </mat-form-field>
+  
+              <mat-form-field>
+                <mat-label>Middle Name</mat-label>
+                <input matInput formControlName="middleName">
+              </mat-form-field>
+  
+              <mat-form-field>
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email" required>
+              </mat-form-field>
+  
+              <mat-form-field>
+                <mat-label>Contact Number</mat-label>
+                <input matInput formControlName="contactNumber" required>
+              </mat-form-field>
+  
+              <mat-form-field>
+                <mat-label>Date of Birth</mat-label>
+                <input matInput [matDatepicker]="dobPicker" formControlName="dateOfBirth" required>
+                <mat-datepicker-toggle matSuffix [for]="dobPicker"></mat-datepicker-toggle>
+                <mat-datepicker #dobPicker></mat-datepicker>
+              </mat-form-field>
+  
+              <mat-form-field>
+                <mat-label>Gender</mat-label>
+                <mat-select formControlName="gender" required>
+                  <mat-option value="male">Male</mat-option>
+                  <mat-option value="female">Female</mat-option>
+                  <mat-option value="other">Other</mat-option>
+                </mat-select>
+              </mat-form-field>
+  
+              <mat-form-field>
+                <mat-label>Admission Date</mat-label>
+                <input matInput [matDatepicker]="admissionDatePicker" formControlName="admissionDate" required>
+                <mat-datepicker-toggle matSuffix [for]="admissionDatePicker"></mat-datepicker-toggle>
+                <mat-datepicker #admissionDatePicker></mat-datepicker>
+              </mat-form-field>
+            </div>
+  
+            <div class="form-column">
+              <mat-form-field>
+                <mat-label>Father's Name</mat-label>
+                <input matInput formControlName="fatherName" required>
+              </mat-form-field>
+  
+              <mat-form-field>
+                <mat-label>Mother's Name</mat-label>
+                <input matInput formControlName="motherName" required>
+              </mat-form-field>
+  
+              <mat-form-field>
+                <mat-label>Current Address</mat-label>
+                <input matInput formControlName="currentAddress" required>
+              </mat-form-field>
+  
+              <mat-form-field>
+                <mat-label>City</mat-label>
+                <input matInput formControlName="city" required>
+              </mat-form-field>
+  
+              <mat-form-field>
+                <mat-label>State</mat-label>
+                <input matInput formControlName="state" required>
+              </mat-form-field>
+  
+              <mat-form-field>
+                <mat-label>ZIP Code</mat-label>
+                <input matInput formControlName="zipCode" required>
+              </mat-form-field>
+  
+              <mat-form-field>
+                <mat-label>Primary Contact Number</mat-label>
+                <input matInput formControlName="primaryContact" required>
+              </mat-form-field>
+  
+              <mat-form-field>
+                <mat-label>Secondary Contact Number</mat-label>
+                <input matInput formControlName="secondaryContact" required>
+              </mat-form-field>
+  
+              <mat-form-field>
+                <mat-label>Admission Grade</mat-label>
+                <input matInput formControlName="admissionGrade" required>
+              </mat-form-field>
+  
+              <mat-form-field>
+                <mat-label>Previous School Name</mat-label>
+                <input matInput formControlName="previousSchoolName" required>
+              </mat-form-field>
+  
+              <mat-form-field>
+                <mat-label>WhatsApp Number</mat-label>
+                <input matInput formControlName="whatsappNumber" required>
+              </mat-form-field>
+            </div>
+          </div>
+  
+          <div class="form-buttons">
+            <button mat-raised-button color="primary">Add</button>
+            <button mat-raised-button color="warn">Cancel</button>
+          </div>
+        </form>
+      </mat-tab>
+  
+      <mat-tab label="Medical Information">
+        <h2>Medical Information</h2>
+        <form [formGroup]="medicalInfoForm">
+          <div class="form-row">
+            <div class="form-column">
+              <mat-form-field>
+                <mat-label>Physician Name</mat-label>
+                <input matInput formControlName="physicianName" required>
+              </mat-form-field>
+  
+              <mat-form-field>
+                <mat-label>Physician Primary Contact Number</mat-label>
+                <input matInput formControlName="physicianContact" required>
+              </mat-form-field>
+  
+              <mat-form-field>
+                <mat-label>Preferred Emergency Hospital</mat-label>
+                <input matInput formControlName="emergencyHospital" required>
+              </mat-form-field>
+            </div>
+  
+            <div class="form-column">
+              <mat-form-field>
+                <mat-label>Current Medication</mat-label>
+                <input matInput formControlName="currentMedication" required>
+              </mat-form-field>
+  
+              <mat-form-field>
+                <mat-label>Medical Allergy</mat-label>
+                <input matInput formControlName="medicalAllergy" required>
+              </mat-form-field>
+  
+              <mat-form-field>
+                <mat-label>Food Allergy</mat-label>
+                <input matInput formControlName="foodAllergy" required>
+              </mat-form-field>
+  
+              <mat-form-field>
+                <mat-label>Chronic Health Issue</mat-label>
+                <input matInput formControlName="chronicHealthIssue" required>
+              </mat-form-field>
+            </div>
+          </div>
+  
+          <div class="form-buttons">
+            <button mat-raised-button color="primary">Add</button>
+            <button mat-raised-button color="warn">Cancel</button>
+          </div>
+        </form>
+      </mat-tab>
+  
+      <mat-tab label="Financial & Aadhaar Information">
+        <h2>Financial & Aadhaar Information</h2>
+        <form [formGroup]="financialAadhaarForm">
+          <div class="form-row">
+            <div class="form-column">
+              <mat-form-field>
+                <mat-label>Father's Occupation</mat-label>
+                <input matInput formControlName="fatherOccupation" required>
+              </mat-form-field>
+  
+              <mat-form-field>
+                <mat-label>Father's Annual Income</mat-label>
+                <input matInput formControlName="fatherIncome" required>
+              </mat-form-field>
+  
+              <mat-form-field>
+                <mat-label>Mother's Occupation</mat-label>
+                <input matInput formControlName="motherOccupation" required>
+              </mat-form-field>
+  
+              <mat-form-field>
+                <mat-label>Mother's Annual Income</mat-label>
+                <input matInput formControlName="motherIncome" required>
+              </mat-form-field>
+            </div>
+  
+            <div class="form-column">
+              <mat-form-field>
+                <mat-label>Aadhaar Card Number</mat-label>
+                <input matInput formControlName="aadhaarNumber" required>
+              </mat-form-field>
+              <!-- <mat-form-field>
+                <mat-label>Aadhaar Card PDF</mat-label>
+                <input type="file" (change)="onFileChange($event)">
+              </mat-form-field> -->
+            </div>
+          </div>
+  
+          <div class="form-buttons">
+            <button mat-raised-button color="primary">Add</button>
+            <button mat-raised-button color="warn">Cancel</button>
+          </div>
+        </form>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+  

@@ -1,0 +1,27 @@
+.add-student {
+    padding: 24px;
+  
+    h2 {
+      margin-bottom: 24px;
+    }
+  
+    form {
+      .form-column {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+  
+      .form-buttons {
+        display: flex;
+        justify-content: center;
+        margin-top: 32px;
+  
+        button {
+          margin: 0 8px;
+          min-width: 120px;
+        }
+      }
+    }
+  }
+  
