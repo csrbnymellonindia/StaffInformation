@@ -18,8 +18,7 @@ public class TeacherController {
     }
 
     @RequestMapping(value = "/teacherDetails", method = RequestMethod.GET)
-    @PreAuthorize("hasRole('admin')")
-
+    
     public List<TeacherModel> findAllTeachers(){
         return teacherService.findAllTeachers();
     }
@@ -31,7 +30,6 @@ public class TeacherController {
     }
 
     @RequestMapping(value = "/createTeacher", method = RequestMethod.POST)
-    @PreAuthorize("hasRole('admin')")
     public void addTeacher(@RequestBody TeacherModel teacherModel){
         System.out.println("In controller");
         teacherService.addTeacher(teacherModel);

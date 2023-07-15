@@ -1,10 +1,14 @@
 package com.codeusingjava.controller;
 
 import com.codeusingjava.config.JwtTokenUtil;
+import com.codeusingjava.custom.CustomUserDetails;
 import com.codeusingjava.model.JwtRequest;
 import com.codeusingjava.model.JwtResponse;
 import com.codeusingjava.model.UserDao;
 import com.codeusingjava.service.JwtUserDetailsService;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -32,12 +36,14 @@ public class JwtController {
 
 		authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 
-		final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
-
+		final CustomUserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
+		final String role = userDetailsService.getUserType(authenticationRequest.getUsername());
 		final String token = jwtTokenUtil.generateToken(userDetails);
-
-		return ResponseEntity.ok(new JwtResponse(token));
-	}
+		Map<String, Object> responseData = new HashMap<>();
+    	responseData.put("token", token);
+    	responseData.put("userType",role);
+    
+    return ResponseEntity.ok(responseData);}
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public ResponseEntity<?> saveUser(@RequestBody UserDao user) throws Exception {
@@ -55,7 +61,7 @@ public class JwtController {
 	}
 	@RequestMapping(value = "/admin_authentication", method = RequestMethod.POST)
 	public boolean adminAuthentication(@RequestBody JwtRequest authenticationRequest) throws Exception {
-
+		
 		if(authenticationRequest.getType().compareTo("admin")==0){
 			return true;
 		}

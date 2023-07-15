@@ -1,5 +1,6 @@
 package com.codeusingjava.service;
 
+import com.codeusingjava.custom.CustomUserDetails;
 import com.codeusingjava.model.UserDao;
 import com.codeusingjava.repository.UserRepository;
 
@@ -13,6 +14,10 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Optional;
 
+
+
+
+
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
 	@Autowired
@@ -22,13 +27,13 @@ public class JwtUserDetailsService implements UserDetailsService {
 	private PasswordEncoder bcryptEncoder;
 
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+	public CustomUserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		UserDao user = userDao.findByUsername(username);
 		if (user == null) {
 			throw new UsernameNotFoundException("User not found with username: " + username);
 		}
-		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
-				new ArrayList<>());
+
+		return new CustomUserDetails(user.getUsername(),user.getPassword(),user.getType());
 	}
 
 	public UserDao save(UserDao user) {
