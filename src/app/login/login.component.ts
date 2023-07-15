@@ -6,6 +6,8 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
+import { AuthService } from '../services/auth.service';
+import { SuccessdialogComponent } from '../successdialog/successdialog.component';
 
 @Component({
   selector: 'app-login',
@@ -15,9 +17,13 @@ import { MatDialog } from '@angular/material/dialog';
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   message:any;
-  constructor(private formBuilder: FormBuilder,private httpclient:HttpClient,private envservice:EnvService,private router:Router,private dialog:MatDialog) { }
+  constructor(private formBuilder: FormBuilder,private httpclient:HttpClient,private envservice:EnvService,private router:Router,private dialog:MatDialog,private authservice:AuthService) { }
 
   ngOnInit(): void {
+
+    this.authservice.isLoggedVar.next(true);
+        this.router.navigate(['/home'])
+        
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(4)]]
@@ -37,12 +43,14 @@ export class LoginComponent implements OnInit {
       this.httpclient.post('http://localhost:8080/validate',{
         "username":username,
         "password":password
-      }).subscribe((res:any)=>{
-       sessionStorage.setItem('token',res.token);
-       sessionStorage.setItem('username',username);
-       this.dialog.open(SuccessDialog,{disableClose:true});
+      }).subscribe(async (res:any)=>{
+       await sessionStorage.setItem('token',res.token);
+       await sessionStorage.setItem('username',username);
+       await sessionStorage.setItem('type',res.userType)
+       this.dialog.open(SuccessdialogComponent,{disableClose:true,data:{message:'Logged in'}});
         setTimeout(()=>{
           this.dialog.closeAll()
+          this.authservice.isLoggedVar.next(true);
         this.router.navigate(['/home'])
         },2000)
       },(err:any)=>{
@@ -56,12 +64,3 @@ export class LoginComponent implements OnInit {
 }
 }
 
-@Component({
-  selector: 'dialog-data-example-dialog',
-  template: `<h3 mat-dialog-title style="color: green;">Successfully logged in</h3>
-  <div mat-dialog-content>
-    Welcome to Teacher Management System!
-  </div>`,
-})
-export class SuccessDialog {
-}

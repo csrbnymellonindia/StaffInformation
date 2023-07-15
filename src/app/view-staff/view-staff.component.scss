@@ -1,0 +1,48 @@
+$colors: #feb236;
+
+.avatar {
+    color: #fff;
+    padding: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+}
+a{
+    margin-bottom: 10px;
+}
+.view-staff {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    margin-bottom: 10rem;
+    padding: 40px;
+    .avatar {
+        img {
+            width: 8rem;
+            height: 8rem;
+        }
+    }
+
+    .h2{
+        margin-bottom: 5rem;
+    }
+
+    .staff-details{
+
+        .staff-field{
+            font-weight: 500;
+            font-size: 1.15rem;
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+
+        span{
+            font-size: 1.1rem;
+            font-weight: 300;
+        }
+    }
+
+}

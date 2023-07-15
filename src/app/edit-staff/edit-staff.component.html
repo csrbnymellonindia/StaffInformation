@@ -2,6 +2,9 @@
     <h2>Add Staff</h2>
     <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
+        <input type="text" id="staffId" class="form-field" placeholder="" formControlName="staffId" hidden>
+      </div>
+      <div class="form-group">
         <label for="staffName">Staff Name</label>
         <input type="text" id="staffName" class="form-field" placeholder="Staff Name" formControlName="staffName" required>
       </div>
@@ -37,7 +40,7 @@
     
       <div class="form-buttons">
         <a mat-button class="cancel-button" routerLink="/home">Cancel</a>
-        <button mat-button class="add-button" type="submit">Add</button>
+        <button mat-button class="add-button" type="submit">Edit</button>
       </div>
     </form>
     
