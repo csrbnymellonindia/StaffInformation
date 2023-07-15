@@ -11,6 +11,10 @@ export class AddStudentComponent implements OnInit {
   medicalInfoForm!: FormGroup;
   financialAadhaarForm!: FormGroup;
 
+  shortLink : string = "";
+  loading: boolean = false;
+  selectedFile!: File | null;
+
   constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit() {
@@ -53,5 +57,9 @@ export class AddStudentComponent implements OnInit {
       motherIncome: ['', Validators.required],
       aadhaarNumber: ['', Validators.required]
     });
+  }
+
+  onFileChange(event: any){
+    this.selectedFile = event.target.files[0];
   }
 }

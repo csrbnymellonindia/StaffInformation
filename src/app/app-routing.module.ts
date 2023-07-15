@@ -17,7 +17,7 @@ const routes: Routes = [
   { path: 'add-staff', component: AddStaffComponent},
   { path: 'audit-log', component: AuditLogComponent},
   { path: 'tasks', component: TasksComponent},
-  //{ path: 'add-student', component: AddStudentComponent }
+  { path: 'add-student', component: AddStudentComponent }
 ];
 
 @NgModule({
