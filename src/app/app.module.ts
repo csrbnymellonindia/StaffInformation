@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatFormFieldModule} from '@angular/material/form-field';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
-import { LoginComponent, SuccessDialog } from './login/login.component';
+import { LoginComponent } from './login/login.component';
 import { ActionCellRendererComponent, HomeComponent } from './home/home.component'
 import { ReactiveFormsModule } from '@angular/forms'
 import {MatIconModule } from '@angular/material/icon'
@@ -26,7 +26,8 @@ import { AddStudentComponent } from './add-student/add-student.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatDatepickerModule } from '@angular/material/datepicker'
 import { MatNativeDateModule } from '@angular/material/core';
-import { MatSelectModule } from '@angular/material/select'
+import { MatSelectModule } from '@angular/material/select';
+import { SuccessdialogComponent } from './successdialog/successdialog.component'
 
 @NgModule({
   declarations: [
@@ -37,11 +38,12 @@ import { MatSelectModule } from '@angular/material/select'
     HomeComponent,
     AddStaffComponent,
     AuditLogComponent,
-    SuccessDialog,
+    SuccessdialogComponent,
     TasksComponent,
     ActionCellRendererComponent,
     LogoutComponent,
-    AddStudentComponent
+    AddStudentComponent,
+    SuccessdialogComponent
   ],
   imports: [
     HttpClientModule,

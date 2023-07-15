@@ -4,7 +4,7 @@
       ><img src="../../assets/images/headerlogo.png" alt="Logo" class="img"
     /></a>
   </div>
-  <nav class="navbar">
+  <nav class="navbar" *ngIf="isLoggedIn">
     <ul class="navbar-list">
       <li class="navbar-item">
         <a routerLink="/" routerLinkActive="active">Home</a>
