@@ -27,7 +27,8 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatDatepickerModule } from '@angular/material/datepicker'
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
-import { SuccessdialogComponent } from './successdialog/successdialog.component'
+import { SuccessdialogComponent } from './successdialog/successdialog.component';
+import { ViewStaffComponent } from './view-staff/view-staff.component'
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { SuccessdialogComponent } from './successdialog/successdialog.component'
     ActionCellRendererComponent,
     LogoutComponent,
     AddStudentComponent,
-    SuccessdialogComponent
+    SuccessdialogComponent,
+    ViewStaffComponent
   ],
   imports: [
     HttpClientModule,

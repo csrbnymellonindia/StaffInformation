@@ -10,6 +10,7 @@ import { TasksComponent } from './tasks/tasks.component';
 import { LogoutComponent } from './logout/logout.component';
 import { AddStudentComponent } from './add-student/add-student.component';
 import { AuthGuard } from './shared/authguard.guard';
+import { ViewStaffComponent } from './view-staff/view-staff.component';
 const routes: Routes = [
   { path: 'home', component: HomeComponent, canActivate:[AuthGuard]  },
   { path: 'login', component: LoginComponent },
@@ -17,7 +18,8 @@ const routes: Routes = [
   { path: 'add-staff', component: AddStaffComponent, canActivate:[AuthGuard]},
   { path: 'audit-log', component: AuditLogComponent, canActivate:[AuthGuard]},
   { path: 'tasks', component: TasksComponent, canActivate:[AuthGuard]},
-  { path: 'add-student', component: AddStudentComponent, canActivate:[AuthGuard] },
+  // { path: 'view-staff', component: ViewStaffComponent}
+   { path: 'add-student', component: AddStudentComponent, canActivate:[AuthGuard] },
   {path:'',redirectTo:'/home',pathMatch:'full'}
 ];
 
