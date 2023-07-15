@@ -20,6 +20,10 @@ export class LoginComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,private httpclient:HttpClient,private envservice:EnvService,private router:Router,private dialog:MatDialog,private authservice:AuthService) { }
 
   ngOnInit(): void {
+
+    this.authservice.isLoggedVar.next(true);
+        this.router.navigate(['/home'])
+        
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(4)]]
@@ -43,7 +47,7 @@ export class LoginComponent implements OnInit {
        await sessionStorage.setItem('token',res.token);
        await sessionStorage.setItem('username',username);
        await sessionStorage.setItem('type',res.userType)
-       this.dialog.open(SuccessdialogComponent,{disableClose:true});
+       this.dialog.open(SuccessdialogComponent,{disableClose:true,data:{message:'Logged in'}});
         setTimeout(()=>{
           this.dialog.closeAll()
           this.authservice.isLoggedVar.next(true);

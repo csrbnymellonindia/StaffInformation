@@ -7,32 +7,40 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-add-staff',
-  templateUrl: './add-staff.component.html',
-  styleUrls: ['./add-staff.component.scss']
+  selector: 'edit-add-staff',
+  templateUrl: './edit-staff.component.html',
+  styleUrls: ['./edit-staff.component.scss']
 })
-export class AddStaffComponent {
+export class EditStaffComponent {
   myForm!: FormGroup;
+  selectedRows: any;
 
-  constructor(private formBuilder: FormBuilder,private httpclient:HttpClient,private authService:AuthService,private dialog:MatDialog,private router:Router) {}
+  constructor(private formBuilder: FormBuilder,private httpclient:HttpClient,private authService:AuthService,private dialog:MatDialog,private router:Router) {
+    this.selectedRows = this.router.getCurrentNavigation()?.extras.state?.['rows'];
+
+  }
 
   ngOnInit() {
+     
     this.myForm = this.formBuilder.group({
-      staffName: ['', Validators.required],
-      primaryContactNumber: ['', Validators.required],
-      secondaryContactNumber: ['', Validators.required],
-      address: ['', Validators.required],
-      emailId: ['', [Validators.required, Validators.email]],
-      whatsappNumber: ['', Validators.required],
+      staffId: [this.selectedRows.staffId],
+      staffName: [this.selectedRows.staffName, Validators.required],
+      primaryContactNumber: [this.selectedRows.primaryContactNumber, Validators.required],
+      secondaryContactNumber: [this.selectedRows.secondaryContactNumber, Validators.required],
+      address: [this.selectedRows.address, Validators.required],
+      emailId: [this.selectedRows.emailId, [Validators.required, Validators.email]],
+      whatsappNumber: [this.selectedRows.whatsappNumber, Validators.required],
     });
+
+    
   }
 
   onSubmit() {
     if (this.myForm.valid) {
       // Handle form submission
-      this.httpclient.post('http://localhost:8080/createTeacher',this.myForm.value,{observe:'response'}).subscribe((res:HttpResponse<any>)=>{
+      this.httpclient.put('http://localhost:8080/updateTeacher/'+this.myForm.value.staffId.toString(),this.myForm.value,{observe:'response'}).subscribe((res:HttpResponse<any>)=>{
         if(res.status==200){
-          this.dialog.open(SuccessdialogComponent,{disableClose:true,data:{message:'Added Staff'}});
+          this.dialog.open(SuccessdialogComponent,{disableClose:true,data:{message:'Edited Staff'}});
           setTimeout(()=>{
             this.dialog.closeAll()
             this.authService.isLoggedVar.next(true);

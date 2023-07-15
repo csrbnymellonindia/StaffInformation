@@ -8,7 +8,9 @@ $colors: #feb236;
     align-items: center;
     border-radius: 100%;
 }
-
+a{
+    margin-bottom: 10px;
+}
 .view-staff {
     display: flex;
     flex-direction: column;
@@ -16,7 +18,7 @@ $colors: #feb236;
     align-items: center;
     height: 100%;
     margin-bottom: 10rem;
-
+    padding: 40px;
     .avatar {
         img {
             width: 8rem;

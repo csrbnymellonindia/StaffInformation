@@ -41,6 +41,9 @@
       [columnDefs]="columnDefs"
       [suppressHorizontalScroll]="false"
       [groupSelectsChildren]="true"
+      [isRowSelectable]="isRowSelectable"
+      [rowSelection]="'single'"
+      (cellClicked)="onSelectionChanged($event)"
       [rowGroupPanelShow]="'always'"
     >
     </ag-grid-angular>

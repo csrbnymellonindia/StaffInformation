@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
 import { ColDef, ICellRendererParams } from 'ag-grid-community';
 @Component({
@@ -11,6 +12,9 @@ export class HomeComponent implements OnInit {
   schoolBackgroundImage = 'path/to/school-background-image.jpg';
   searchQuery!: string;
   public rowData: any;
+  public isRowSelectable:any=(params:any)=>{
+    return !params.data;
+  }
   public columnDefs: ColDef[] = [
     { headerName: 'S.No', field: 'sno', maxWidth: 150, valueGetter: "node.rowIndex + 1" },
     { headerName: 'Staff Name', maxWidth: 150, field: 'staffName',resizable:true },
@@ -35,8 +39,6 @@ export class HomeComponent implements OnInit {
   fetchTeachers(){
     this.httpclient.get('http://localhost:8080/teacherDetails').subscribe((res)=>{
       this.rowData = res;
-      console.log(res);
-      
     })
   }
   ngOnInit(){
@@ -48,24 +50,35 @@ export class HomeComponent implements OnInit {
     this.gridApi.sizeColumnsToFit();
     
   }
+
+  onSelectionChanged(event:any){
+    selectedRows = event.data;
+    console.log(selectedRows);
+    
+  }
+
   constructor(private httpclient:HttpClient) {
     // Initialize the rowData with your data
    
   }
 }
-
+var selectedRows: any;
 // ActionCellRendererComponent - Custom component to render the action column
 @Component({
   template: `
    <button mat-button [matMenuTriggerFor]="menu"><mat-icon>more_vert</mat-icon></button>
         <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="view">View</button>
-          <button mat-menu-item (click)="edit">Edit</button>
-          <button mat-menu-item (click)="delete">Delete</button>
+        <button mat-menu-item (click)="view()">View</button>
+          <button mat-menu-item (click)="edit()">Edit</button>
+          <button mat-menu-item (click)="delete()">Delete</button>
         </mat-menu>
   `,
 })
 export class ActionCellRendererComponent implements ICellRendererAngularComp {
+  
+  constructor(private router:Router){
+
+  }
   agInit(params: ICellRendererParams<any, any, any>): void {
    
   }
@@ -74,6 +87,7 @@ export class ActionCellRendererComponent implements ICellRendererAngularComp {
   }
   // Implement the edit and delete functions
   edit() {
+    this.router.navigate(['/edit-staff'],{state:{rows:selectedRows}})
     // ...
   }
 
@@ -82,6 +96,7 @@ export class ActionCellRendererComponent implements ICellRendererAngularComp {
   }
   
   view(){
+    this.router.navigate(['/view-staff'],{state:{rows:selectedRows}})
     // ...
   }
 }
