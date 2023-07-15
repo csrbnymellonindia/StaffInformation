@@ -26,7 +26,8 @@ import { AddStudentComponent } from './add-student/add-student.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatDatepickerModule } from '@angular/material/datepicker'
 import { MatNativeDateModule } from '@angular/material/core';
-import { MatSelectModule } from '@angular/material/select'
+import { MatSelectModule } from '@angular/material/select';
+import { TeacherHomeComponent } from './teacher-home/teacher-home.component'
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { MatSelectModule } from '@angular/material/select'
     TasksComponent,
     ActionCellRendererComponent,
     LogoutComponent,
-    AddStudentComponent
+    AddStudentComponent,
+    TeacherHomeComponent
   ],
   imports: [
     HttpClientModule,
