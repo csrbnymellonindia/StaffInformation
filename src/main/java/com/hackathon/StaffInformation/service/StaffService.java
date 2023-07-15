@@ -3,6 +3,7 @@ package com.hackathon.StaffInformation.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.hackathon.StaffInformation.exception.AuthException;
 import com.hackathon.StaffInformation.model.Staff;
 
 public interface StaffService {
@@ -16,5 +17,5 @@ public interface StaffService {
   Optional<Staff> findStaffEntry(Long staffId);
   Staff createStaffEntry(Staff newStaffEntry);
   void updateStaffEntry(Staff updatedStaffEntry, Long staffId);
-  void deleteStaffEntry(Long staffEntry);
+  void deleteStaffEntry(Long staffEntry) throws AuthException;
 }

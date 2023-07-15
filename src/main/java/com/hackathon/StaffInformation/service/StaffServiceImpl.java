@@ -7,9 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import com.hackathon.StaffInformation.exception.AuthException;
 import com.hackathon.StaffInformation.exception.StaffNotFoundException;
 import com.hackathon.StaffInformation.model.Staff;
 import com.hackathon.StaffInformation.repository.StaffRepository;
+import static com.hackathon.StaffInformation.controller.AuthController.currentRoleId;
+import static com.hackathon.StaffInformation.controller.AuthController.adminRoleId;;
 
 @Service
 public class StaffServiceImpl implements StaffService {
@@ -71,6 +74,7 @@ public class StaffServiceImpl implements StaffService {
      @Override
      public void updateStaffEntry(Staff updatedStaffEntry, Long staffId)
      {
+        
         Optional<Staff> optionalStaff = staffRepository.findById(staffId);
         if(!optionalStaff.isPresent())
         {
@@ -80,8 +84,9 @@ public class StaffServiceImpl implements StaffService {
      }
 
     @Override
-    public void deleteStaffEntry(Long staffId)
+    public void deleteStaffEntry(Long staffId) throws AuthException
     {
+        if(currentRoleId != adminRoleId) throw new AuthException("You are not authorized to perform this operation!");
         Optional<Staff> optionalStaff = staffRepository.findById(staffId);
         if(!optionalStaff.isPresent())
         {

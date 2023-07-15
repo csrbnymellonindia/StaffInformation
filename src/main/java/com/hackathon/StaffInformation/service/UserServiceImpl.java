@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService {
             throw new AuthException("User already exists. Try logging in");
         }
 
-        User newUser = userRepository.save(user);
+        userRepository.save(user);
 
         return "SignUp successful";
     }

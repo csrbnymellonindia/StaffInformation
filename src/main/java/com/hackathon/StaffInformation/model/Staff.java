@@ -2,9 +2,13 @@ package com.hackathon.StaffInformation.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -32,6 +36,14 @@ public class Staff {
 
     @Column(name="whatsapp_number")
     private Long whatsappNumber;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "staff_users",
+            joinColumns = @JoinColumn(name = "ID"),
+            inverseJoinColumns = @JoinColumn(name = "username")
+    )
+    private User user;
 
 
     public Long getStaffId() {
@@ -89,6 +101,18 @@ public class Staff {
     public void setWhatsappNumber(Long whatsappNumber) {
         this.whatsappNumber = whatsappNumber;
     }
+
+    public User getUser() {
+        return this.user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
     
+    
+
+    public Staff() {
+    }
     
 }

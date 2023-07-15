@@ -14,7 +14,7 @@ public interface UserRepository extends CrudRepository<User, String> {
     void setRoleOnSignup(Long role, String username);
 
     @Modifying
-    @Query(value = "UPDATE users_roles set role_id = ?1 where user_id like ?2", nativeQuery = true)
+    @Query(value = "UPDATE users_roles set role_id = ?1 where username like ?2", nativeQuery = true)
     @Transactional
     void setRoleForUser(Long role, String username);
 

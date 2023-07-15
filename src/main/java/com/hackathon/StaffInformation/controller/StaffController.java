@@ -13,10 +13,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.hackathon.StaffInformation.exception.AuthException;
 import com.hackathon.StaffInformation.exception.StaffNotFoundException;
 import com.hackathon.StaffInformation.model.Staff;
 import com.hackathon.StaffInformation.service.StaffService;
+import static com.hackathon.StaffInformation.controller.AuthController.currentRoleId;
 
 @RestController("/")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -29,15 +30,17 @@ public class StaffController {
     }
 
     @GetMapping("/staff")
-    public ResponseEntity<Object> getStaffEntries(@RequestParam(required = false) Long offset, @RequestParam(required = false) Long limit, @RequestParam(required = false) String staffName, @RequestParam(required = false) String emailIdentifier)
+    public ResponseEntity<Object> getStaffEntries(@RequestParam(required = false) Long offset, @RequestParam(required = false) Long limit, @RequestParam(required = false) String staffName, @RequestParam(required = false) String emailIdentifier) throws AuthException
     {
+        if(currentRoleId == null) throw new AuthException("Please login to perform this operation!");
         if(staffName != null && emailIdentifier != null) return new ResponseEntity<Object>(staffService.getFilteredStaffEntriesByBoth(offset, limit, staffName, emailIdentifier), HttpStatus.OK);
         else if(staffName != null || emailIdentifier != null) return staffName != null ? new ResponseEntity<Object>(staffService.getFilteredStaffEntriesByOne(offset, limit, staffName), HttpStatus.OK) : new ResponseEntity<Object>(staffService.getFilteredStaffEntriesByOne(offset, limit, emailIdentifier), HttpStatus.OK);
         else return offset != null && limit != null ? new ResponseEntity<Object>(staffService.getStaffEntriesByIndex(offset, limit), HttpStatus.OK) : new ResponseEntity<Object>(staffService.getStaffEntries(), HttpStatus.OK);
     }
     @GetMapping("/staff/count")
-    public ResponseEntity<Object> getStaffEntriesCount(@RequestParam(required = false) String staffName, @RequestParam(required = false) String emailIdentifier)
+    public ResponseEntity<Object> getStaffEntriesCount(@RequestParam(required = false) String staffName, @RequestParam(required = false) String emailIdentifier) throws AuthException
     {
+        if(currentRoleId == null) throw new AuthException("Please login to perform this operation!");
         if(staffName != null && emailIdentifier != null)
         {
             return new ResponseEntity<Object>(staffService.getCountFilteredStaffEntriesByBoth(staffName, emailIdentifier), HttpStatus.OK);
@@ -46,8 +49,9 @@ public class StaffController {
         else return new ResponseEntity<Object>(staffService.getCountOfStaffEntries(), HttpStatus.OK);
     }
     @GetMapping("/staff/{staffId}")
-    public ResponseEntity<Staff> getStaffEntryById(@PathVariable("staffId") Long staffId)
+    public ResponseEntity<Staff> getStaffEntryById(@PathVariable("staffId") Long staffId) throws AuthException
     {
+        if(currentRoleId == null) throw new AuthException("Please login to perform this operation!");
         if(!staffService.findStaffEntry(staffId).isPresent())
         {
             throw new StaffNotFoundException(HttpStatus.NOT_FOUND, "Staff with this Id does not exist!");
@@ -56,20 +60,23 @@ public class StaffController {
     } 
 
     @PostMapping("/staff")
-    public ResponseEntity<Staff> addStaffEntry(@RequestBody Staff newStaffEntry)
+    public ResponseEntity<Staff> addStaffEntry(@RequestBody Staff newStaffEntry) throws AuthException
     {
+        if(currentRoleId == null) throw new AuthException("Please login to perform this operation!");
         return new ResponseEntity<Staff>(staffService.createStaffEntry(newStaffEntry), HttpStatus.OK);
     }
 
     @PutMapping("/staff/{staffId}")
-    public void updateStaffEntry(@RequestBody Staff updatedStaffEntry, @PathVariable("staffId") Long staffId)
+    public void updateStaffEntry(@RequestBody Staff updatedStaffEntry, @PathVariable("staffId") Long staffId) throws AuthException
     {
+        if(currentRoleId == null) throw new AuthException("Please login to perform this operation!");
         staffService.updateStaffEntry(updatedStaffEntry, staffId);
     }
 
     @DeleteMapping("/staff/{staffId}")
-    public void deleteStaffEntry(@PathVariable("staffId") Long staffId)
+    public void deleteStaffEntry(@PathVariable("staffId") Long staffId) throws AuthException
     {
+        if(currentRoleId == null) throw new AuthException("Please login to perform this operation!");
         staffService.deleteStaffEntry(staffId);
     }
 
