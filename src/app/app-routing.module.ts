@@ -9,6 +9,7 @@ import { AuditLogComponent } from './audit-log/audit-log.component';
 import { TasksComponent } from './tasks/tasks.component';
 import { LogoutComponent } from './logout/logout.component';
 import { AddStudentComponent } from './add-student/add-student.component';
+import { ViewStaffComponent } from './view-staff/view-staff.component';
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },
@@ -17,7 +18,8 @@ const routes: Routes = [
   { path: 'add-staff', component: AddStaffComponent},
   { path: 'audit-log', component: AuditLogComponent},
   { path: 'tasks', component: TasksComponent},
-  //{ path: 'add-student', component: AddStudentComponent }
+  // { path: 'view-staff', component: ViewStaffComponent}
+  // { path: 'add-student', component: AddStudentComponent }
 ];
 
 @NgModule({
