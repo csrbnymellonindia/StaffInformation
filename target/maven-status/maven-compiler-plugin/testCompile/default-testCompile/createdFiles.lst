@@ -1,1 +1,3 @@
 com\techgeeknext\SpringBootJwtApplicationTests.class
+com\codeusingjava\controller\StudentControllerTest.class
+com\codeusingjava\controller\TeacherControllerTest.class
