@@ -145,7 +145,7 @@ public class StudentServiceImpl implements StudentService {
         }
 
         // Validate ADMITTED_GRADE_TEXT (if present)
-        if (student.getAdmittedGrade() != null && student.getAdmittedGrade().isEmpty()) {
+        if (student.getAdmittedGrade() == null || student.getAdmittedGrade().isEmpty()) {
             return false;
         }
 
