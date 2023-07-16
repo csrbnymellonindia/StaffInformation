@@ -31,6 +31,7 @@ import { SuccessdialogComponent } from './successdialog/successdialog.component'
 import { ViewStaffComponent } from './view-staff/view-staff.component';
 import { IgxAvatarModule } from 'igniteui-angular';
 import { EditStaffComponent } from './edit-staff/edit-staff.component';
+import { DeleteComponent } from './home/delete/delete.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { EditStaffComponent } from './edit-staff/edit-staff.component';
     LogoutComponent,
     AddStudentComponent,
     SuccessdialogComponent,
-    ViewStaffComponent
+    ViewStaffComponent,
+    DeleteComponent
   ],
   imports: [
     HttpClientModule,
