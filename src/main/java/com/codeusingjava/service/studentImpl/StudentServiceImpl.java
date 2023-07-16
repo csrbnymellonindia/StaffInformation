@@ -1,11 +1,15 @@
 package com.codeusingjava.service.studentImpl;
 
+import com.codeusingjava.model.AuditLogModel;
 import com.codeusingjava.model.StudentModel;
 import com.codeusingjava.repository.StudentRepository;
+import com.codeusingjava.service.AuditLogService;
 import com.codeusingjava.service.StudentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
@@ -17,6 +21,7 @@ import java.util.regex.Pattern;
 public class StudentServiceImpl implements StudentService {
 
     private final StudentRepository studentRepository;
+    private AuditLogService auditLogService;
 
     public StudentServiceImpl(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
