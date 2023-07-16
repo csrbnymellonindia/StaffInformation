@@ -54,7 +54,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		
 		httpSecurity.csrf().disable()
+<<<<<<< HEAD
 		.authorizeRequests().antMatchers("/createTeacher","/teacherDetails","/teacherDetails/{staffId}","/updateTeacher/{staffId}","/deleteTeacher/{staffId}","/validate", "/create","/admin_authentication","/teacher_authentication","/students/addStud","/students/getAll","students/getStud/{studentIdentifier}","/updateStud/{studentIdentifier}","/feedbacks/addFeedback","/feedbacks/getAll","/audit-logs/add").permitAll().
+=======
+		.authorizeRequests().antMatchers("/createTeacher","/teacherDetails","/teacherDetails/{staffId}","/updateTeacher/{staffId}","/deleteTeacher/{staffId}","/validate", "/create","/admin_authentication","/teacher_authentication","/students/addStud","/students/getAll","students/getStud/{studentIdentifier}","/updateStud/{studentIdentifier}","/teacherMedicalDetails","/teacherMedicalDetails/{staffId}","/addTeacherMedicalHistory","/updateTeacherMedicalHistory/{staffId}","/deleteTeacherMedicalHistory/{staffId}").permitAll().
+>>>>>>> 84fc0e811137b00f3ca0b575cb702abc1735a5ce
 						anyRequest().authenticated().and().
 						exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS)

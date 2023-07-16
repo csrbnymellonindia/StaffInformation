@@ -27,6 +27,7 @@ public class TeacherModel {
     @Column(name="Whatsapp_Number")
     private long whatsappNumber ;
 
+
     public long getStaffId() {
         return staffId;
     }

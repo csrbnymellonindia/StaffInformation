@@ -1,8 +1,8 @@
 package com.codeusingjava.service.teacherImpl;
 
 import com.codeusingjava.model.TeacherModel;
+import com.codeusingjava.repository.TeacherMedicalHistoryRepository;
 import com.codeusingjava.repository.TeacherRepository;
-import com.codeusingjava.service.JwtUserDetailsService;
 import com.codeusingjava.service.TeacherService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -14,10 +14,14 @@ import java.util.Optional;
 public class TeacherServiceImpl implements TeacherService {
 
     private final TeacherRepository teacherRepository;
+    private final TeacherMedicalHistoryRepository teacherMedicalHistoryRepository;
 
 
-    public TeacherServiceImpl(TeacherRepository teacherRepository) {
+    public TeacherServiceImpl(TeacherRepository teacherRepository, TeacherMedicalHistoryRepository teacherMedicalHistoryRepository) {
         this.teacherRepository = teacherRepository;
+
+
+        this.teacherMedicalHistoryRepository = teacherMedicalHistoryRepository;
     }
 
     public boolean validate(TeacherModel teacherModel) {
@@ -66,6 +70,7 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public ResponseEntity<String> addTeacher(TeacherModel teacherModel) {
         if (validate(teacherModel)) {
+
             teacherRepository.save(teacherModel);
             return ResponseEntity.ok().body("Teacher added successfully!");
         }
@@ -103,6 +108,7 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public ResponseEntity<String> deleteTeacherDetails(Long staffId) {
         teacherRepository.deleteById(staffId);
+        teacherMedicalHistoryRepository.deleteById(staffId);
         return ResponseEntity.ok().body("Teacher deleted successfully!");
     }
 }
