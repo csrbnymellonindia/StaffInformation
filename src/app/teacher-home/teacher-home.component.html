@@ -8,29 +8,18 @@
       </div>
       <div class="display-card">
         <div class="card-item">
-          <span class="label">No. of Students</span>
-          <span class="number">50</span>
-        </div>
-        <div class="card-item">
-          <span class="label">Classes</span>
-          <span class="number">200</span>
-        </div>
-        <div class="card-item">
-          <span class="label">Tasks</span>
-          <span class="number">10</span>
+            <h5>Welcome {{username }}</h5>
         </div>
       </div>
     </div>
     <div class="section2">
-        <div class="welcome-title">
-            <h1>Welcome Teacher Name</h1>
-        </div>
+        
       <div class="search-bar">
         <mat-form-field appearance="outline">
           <mat-icon matPrefix>search</mat-icon>
           <input matInput placeholder="Search for a teacher" />
         </mat-form-field>
-        <button mat-raised-button  routerLink="/add-staff">
+        <button mat-raised-button  routerLink="/add-student">
         Add Students
         </button>
       </div>
@@ -45,6 +34,8 @@
         [suppressHorizontalScroll]="false"
         [groupSelectsChildren]="true"
         [rowGroupPanelShow]="'always'"
+        [isRowSelectable]="isRowSelectable"
+        (cellClicked)="onSelectionChanged($event)"
       >
       </ag-grid-angular>
     </div>

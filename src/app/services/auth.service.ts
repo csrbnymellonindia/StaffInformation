@@ -7,12 +7,16 @@ import { BehaviorSubject } from 'rxjs';
 export class AuthService {
 
   constructor() {
-    if(localStorage.getItem('token')){
+    if(sessionStorage.getItem('token')){
+      this.userTypeVar.next(sessionStorage.getItem('type')!)
       this.isLoggedVar.next(true);
     }else{
+      this.userTypeVar.next(sessionStorage.getItem('')!)
       this.isLoggedVar.next(false);
     }
    }
+  userTypeVar = new BehaviorSubject<String>('');
+  $userTypeObs = this.userTypeVar.asObservable();
   isLoggedVar = new BehaviorSubject<boolean>(false);
   $loggedInStatus = this.isLoggedVar.asObservable();
   isLoggedIn(){

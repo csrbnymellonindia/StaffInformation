@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -10,12 +11,11 @@ export class AddStudentComponent implements OnInit {
   generalInfoForm!: FormGroup;
   medicalInfoForm!: FormGroup;
   financialAadhaarForm!: FormGroup;
-
   shortLink : string = "";
   loading: boolean = false;
   selectedFile!: File | null;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder,private router:Router) {}
 
   ngOnInit() {
     this.generalInfoForm = this.formBuilder.group({
@@ -58,7 +58,9 @@ export class AddStudentComponent implements OnInit {
       aadhaarNumber: ['', Validators.required]
     });
   }
-
+  goBack() {
+    this.router.navigate(['/student-view']);
+  }
   onFileChange(event: any){
     this.selectedFile = event.target.files[0];
   }

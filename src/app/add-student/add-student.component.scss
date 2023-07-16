@@ -12,16 +12,19 @@
         gap: 16px;
       }
   
-      .form-buttons {
-        display: flex;
-        justify-content: center;
-        margin-top: 32px;
-  
-        button {
-          margin: 0 8px;
-          min-width: 120px;
-        }
-      }
+      
+        
+      
     }
   }
   
+.form-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 32px;
+    align-items: center;
+    button {
+      margin: 0 8px;
+      min-width: 120px;
+    }
+  }

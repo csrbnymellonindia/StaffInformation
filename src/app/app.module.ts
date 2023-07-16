@@ -27,12 +27,14 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
-import { TeacherHomeComponent } from './teacher-home/teacher-home.component';
+import { ActionCellRendererComponent2, TeacherHomeComponent } from './teacher-home/teacher-home.component';
 import { SuccessdialogComponent } from './successdialog/successdialog.component';
 import { ViewStaffComponent } from './view-staff/view-staff.component';
 import { IgxAvatarModule } from 'igniteui-angular';
 import { EditStaffComponent } from './edit-staff/edit-staff.component';
 import { DeleteComponent } from './home/delete/delete.component';
+import { AuthService } from './services/auth.service';
+import { EnvService } from './env.service';
 
 @NgModule({
   declarations: [
@@ -46,13 +48,15 @@ import { DeleteComponent } from './home/delete/delete.component';
     AuditLogComponent,
     SuccessdialogComponent,
     TasksComponent,
-    ActionCellRendererComponent,
     LogoutComponent,
     AddStudentComponent,
     TeacherHomeComponent,
     SuccessdialogComponent,
     ViewStaffComponent,
-    DeleteComponent
+    DeleteComponent,
+    AddStudentComponent,
+    ActionCellRendererComponent,
+    ActionCellRendererComponent2
   ],
   imports: [
     HttpClientModule,
@@ -74,10 +78,11 @@ import { DeleteComponent } from './home/delete/delete.component';
     MatTabsModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatSelectModule
+    MatSelectModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [AuthService,EnvService],
+  bootstrap: [AppComponent,
+  ]
 })
 export class AppModule {
 }

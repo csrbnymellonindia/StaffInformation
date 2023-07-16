@@ -112,10 +112,7 @@
             </div>
           </div>
   
-          <div class="form-buttons">
-            <button mat-raised-button color="primary">Add</button>
-            <button mat-raised-button color="warn">Cancel</button>
-          </div>
+         
         </form>
       </mat-tab>
   
@@ -163,10 +160,7 @@
             </div>
           </div>
   
-          <div class="form-buttons">
-            <button mat-raised-button color="primary">Add</button>
-            <button mat-raised-button color="warn">Cancel</button>
-          </div>
+         
         </form>
       </mat-tab>
   
@@ -208,12 +202,13 @@
             </div>
           </div>
   
-          <div class="form-buttons">
-            <button mat-raised-button color="primary">Add</button>
-            <button mat-raised-button color="warn">Cancel</button>
-          </div>
+          
         </form>
       </mat-tab>
     </mat-tab-group>
+    <div class="form-buttons">
+            <button mat-raised-button color="primary" [disabled]="!generalInfoForm.valid && !financialAadhaarForm.valid && !medicalInfoForm.valid" >Add</button>
+            <button mat-raised-button color="warn" (click)="goBack()">Cancel</button>
+          </div>
   </div>
   
