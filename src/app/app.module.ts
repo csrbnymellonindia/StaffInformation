@@ -35,7 +35,7 @@ import { EditStaffComponent } from './edit-staff/edit-staff.component';
 import { DeleteComponent } from './home/delete/delete.component';
 import { AuthService } from './services/auth.service';
 import { EnvService } from './env.service';
-
+import {MatCheckboxModule} from '@angular/material/checkbox'
 @NgModule({
   declarations: [
     AppComponent,
@@ -69,6 +69,7 @@ import { EnvService } from './env.service';
     AppRoutingModule,
     BrowserAnimationsModule,
     MatCardModule,
+    MatCheckboxModule,
     MatFormFieldModule,
     ReactiveFormsModule,
     MatIconModule,
