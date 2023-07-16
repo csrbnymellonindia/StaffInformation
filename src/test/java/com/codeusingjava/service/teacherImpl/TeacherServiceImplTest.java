@@ -9,6 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 
+import com.codeusingjava.repository.TeacherMedicalHistoryRepository;
 import com.codeusingjava.repository.TeacherRepository;
 import com.codeusingjava.service.TeacherService;
 import com.codeusingjava.model.TeacherModel;
@@ -21,9 +22,13 @@ class TeacherServiceImplTest {
 	@Mock
 	private TeacherRepository teacherRepository = mock(TeacherRepository.class);
 	
+	@Mock
+    private  TeacherMedicalHistoryRepository teacherMedicalHistoryRepository = mock(TeacherMedicalHistoryRepository.class);
+
+	
 	
 	@InjectMocks
-	TeacherServiceImpl teacherServiceImpl = new TeacherServiceImpl(teacherRepository);
+	TeacherServiceImpl teacherServiceImpl = new TeacherServiceImpl(teacherRepository, teacherMedicalHistoryRepository);
 	
 	TeacherModel teacherModel = new TeacherModel();
 	

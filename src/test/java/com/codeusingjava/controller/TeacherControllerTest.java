@@ -38,7 +38,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.codeusingjava.model.TeacherModel;
-
+import com.codeusingjava.service.AuditLogService;
 import com.codeusingjava.service.TeacherService;
 
 import org.springframework.test.web.servlet.MockMvc;
@@ -71,10 +71,13 @@ class TeacherControllerTest {
 	private TeacherModel teacherModel = new TeacherModel();
 	
 	private final ObjectMapper mapper = new ObjectMapper();	
+	
+	@MockBean
+	private final AuditLogService auditLogService = mock(AuditLogService.class) ;
 
 	@BeforeEach
 	void setUp() {
-		this.mockMvc = MockMvcBuilders.standaloneSetup(new TeacherController(teacherService)).build();
+		this.mockMvc = MockMvcBuilders.standaloneSetup(new TeacherController(teacherService, auditLogService)).build();
         teacherModel.setStaffId((long)123);
         teacherModel.setAddress("abc");
         teacherModel.setEmailId("xyz");

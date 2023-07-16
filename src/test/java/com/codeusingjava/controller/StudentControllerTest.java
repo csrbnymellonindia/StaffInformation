@@ -38,7 +38,7 @@ class StudentControllerTest {
 	
 	@BeforeEach
 	void setUp() {
-		this.mockMvc = MockMvcBuilders.standaloneSetup(new StudentController(studentService),new AuditLogController(auditLogService)).build();
+		this.mockMvc = MockMvcBuilders.standaloneSetup(new StudentController(studentService, auditLogService),new AuditLogController(auditLogService)).build();
         studentModel.setAdditionalDetails("abc");
         studentModel.setStudentIdentifier(123);
 	}
