@@ -9,6 +9,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+@ComponentScan({"com.codeusingjava.controller"})
+@ComponentScan({"com.codeusingjava.service"})
+@EntityScan("com.codeusingjava.model")
+@EnableJpaRepositories("com.codeusingjava.repository")
 @Controller
 @SpringBootApplication
 public class SpringJwtApplication implements ErrorController {

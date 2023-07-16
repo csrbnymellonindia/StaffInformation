@@ -3,6 +3,7 @@ package com.codeusingjava.controller;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 
+import com.codeusingjava.service.AuditLogService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -25,6 +26,7 @@ class StudentControllerTest {
 	
 	@Mock
 	StudentService studentService = mock(StudentService.class);
+	AuditLogService auditLogService = mock(AuditLogService.class);
 	
 	@Autowired
 	MockMvc mockMvc;
@@ -36,7 +38,7 @@ class StudentControllerTest {
 	
 	@BeforeEach
 	void setUp() {
-		this.mockMvc = MockMvcBuilders.standaloneSetup(new StudentController(studentService)).build();
+		this.mockMvc = MockMvcBuilders.standaloneSetup(new StudentController(studentService, auditLogService),new AuditLogController(auditLogService)).build();
         studentModel.setAdditionalDetails("abc");
         studentModel.setStudentIdentifier(123);
 	}

@@ -73,7 +73,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
 		  })
         .and().csrf().disable()
 		.authorizeRequests().antMatchers("/createTeacher","/teacherDetails","/teacherDetails/{staffId}","/updateTeacher/{staffId}","/deleteTeacher/{staffId}","/validate", "/create","/admin_authentication","/teacher_authentication","/students/addStud","/students/getAll","students/getStud/{studentIdentifier}","/updateStud/{studentIdentifier}").permitAll().
-					and().
+					and().csrf().disable()
+		.authorizeRequests().antMatchers("/createTeacher","/teacherDetails","/teacherDetails/{staffId}","/updateTeacher/{staffId}","/deleteTeacher/{staffId}","/validate", "/create","/admin_authentication","/teacher_authentication","/students/addStud","/students/getAll","students/getStud/{studentIdentifier}","/updateStud/{studentIdentifier}","/feedbacks/addFeedback","/feedbacks/getAll","/audit-logs/add").permitAll().
+						anyRequest().authenticated().and().
 						exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 				;
