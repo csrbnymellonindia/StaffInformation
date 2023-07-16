@@ -24,7 +24,6 @@ public class TeacherController {
     }
 
     @RequestMapping(value = "/teacherDetails/{staffId}", method = RequestMethod.GET)
-    @PreAuthorize("hasRole('admin')")
     public Optional<TeacherModel> findById(@PathVariable Long staffId){
         return teacherService.findById(staffId);
     }
@@ -35,14 +34,12 @@ public class TeacherController {
         teacherService.addTeacher(teacherModel);
     }
     @RequestMapping(value = "/updateTeacher/{staffId}", method = RequestMethod.PUT)
-    @PreAuthorize("hasRole('admin')")
     public void updateTeacher(@PathVariable Long staffId,@RequestBody TeacherModel teacherModel){
 
         teacherService.updateTeacherDetails(staffId,teacherModel);
     }
 
     @RequestMapping(value = "/deleteTeacher/{staffId}", method = RequestMethod.DELETE)
-    @PreAuthorize("hasRole('admin')")
     public void deleteTeacherDetails(@PathVariable Long staffId){
         teacherService.deleteTeacherDetails(staffId);
 
