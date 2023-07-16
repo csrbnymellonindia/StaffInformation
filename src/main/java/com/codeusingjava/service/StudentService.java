@@ -17,4 +17,5 @@ public interface StudentService {
     ResponseEntity<String> updateStudent(int studentIdentifier, StudentModel student);
 
     ResponseEntity<String> deleteStudent(int studentIdentifier);
+
 }

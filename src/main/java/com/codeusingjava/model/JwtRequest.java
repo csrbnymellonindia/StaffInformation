@@ -15,9 +15,10 @@ public class JwtRequest implements Serializable {
 	{
 	}
 
-	public JwtRequest(String username, String password) {
+	public JwtRequest(String username, String password,String type) {
 		this.setUsername(username);
 		this.setPassword(password);
+		this.setType(type);
 	}
 
 	public String getUsername() {
