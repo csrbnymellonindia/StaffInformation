@@ -1,1 +1,13 @@
-<p>audit-log works!</p>
+<div class="audit-log">
+    <h1>Last Recent Activity</h1>
+    <p class="timestamp">Timestamp: {{ lastActivityTimestamp }}</p>
+  
+    <ag-grid-angular
+      class="ag-theme-material"
+      [rowData]="rowData"
+      [columnDefs]="columnDefs"
+      [suppressHorizontalScroll]="false"
+    >
+    </ag-grid-angular>
+  </div>
+  

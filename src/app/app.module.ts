@@ -27,6 +27,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import { TeacherHomeComponent } from './teacher-home/teacher-home.component';
 import { SuccessdialogComponent } from './successdialog/successdialog.component';
 import { ViewStaffComponent } from './view-staff/view-staff.component';
 import { IgxAvatarModule } from 'igniteui-angular';
@@ -48,6 +49,7 @@ import { DeleteComponent } from './home/delete/delete.component';
     ActionCellRendererComponent,
     LogoutComponent,
     AddStudentComponent,
+    TeacherHomeComponent,
     SuccessdialogComponent,
     ViewStaffComponent,
     DeleteComponent
