@@ -36,6 +36,7 @@ import { DeleteComponent } from './home/delete/delete.component';
 import { AuthService } from './services/auth.service';
 import { EnvService } from './env.service';
 import {MatCheckboxModule} from '@angular/material/checkbox'
+import { EditStudentComponent } from './edit-student/edit-student.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,7 +57,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox'
     DeleteComponent,
     AddStudentComponent,
     ActionCellRendererComponent,
-    ActionCellRendererComponent2
+    ActionCellRendererComponent2,
+    EditStudentComponent
   ],
   imports: [
     HttpClientModule,

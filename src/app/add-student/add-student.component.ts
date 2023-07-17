@@ -1,8 +1,11 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { CheckboxControlValueAccessor, FormBuilder, FormGroup, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
+import { SuccessdialogComponent } from '../successdialog/successdialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { AuthService } from '../services/auth.service';
 
 
 @Component({
@@ -22,7 +25,7 @@ export class AddStudentComponent implements OnInit {
     const control = this.generalInfoForm.get(controlName)!;
     control.setValue(!control.value);
   }
-  constructor(private formBuilder: FormBuilder,private router:Router,private httpclient:HttpClient) {
+  constructor(private formBuilder: FormBuilder,private router:Router,private httpclient:HttpClient,private dialog:MatDialog,private authService:AuthService) {
   this.datePipe = new DatePipe('en-US');
 
   }
@@ -136,8 +139,17 @@ export class AddStudentComponent implements OnInit {
     }
     console.log(studentData);
     
-    this.httpclient.post('http://localhost:8080/students/addStud',studentData).subscribe((res)=>{
-      console.log(res);
+    this.httpclient.post('http://localhost:8080/students/addStud',studentData,{observe:'response'}).subscribe((res:HttpResponse<any>)=>{
+      if(res.status==200){
+        this.dialog.open(SuccessdialogComponent,{disableClose:true,data:{message:'Added Student'}});
+        setTimeout(()=>{
+          this.dialog.closeAll()
+          this.authService.isLoggedVar.next(true);
+        this.router.navigate(['/student-view'])
+        },2000)
+      }else{
+        this.generalInfoForm.setErrors({serverError:true})
+      }
       
     },(err)=>{
       console.log(err);

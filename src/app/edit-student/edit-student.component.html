@@ -10,10 +10,7 @@
               <mat-label>Student First Name</mat-label>
               <input matInput formControlName="studentFirstName" >
             </mat-form-field>
-            <mat-form-field>
-              <mat-label>Student Identifier</mat-label>
-              <input matInput formControlName="studentIdentifier" >
-            </mat-form-field>
+           
             
             <mat-form-field>
               <mat-label>Student Last Name</mat-label>
@@ -301,7 +298,7 @@
   </form>
 
   <div class="form-buttons">
-    <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="!generalInfoForm.valid">Add</button>
+    <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="!generalInfoForm.valid">Update</button>
     <button mat-raised-button color="warn" (click)="goBack()">Cancel</button>
   </div>
 </div>

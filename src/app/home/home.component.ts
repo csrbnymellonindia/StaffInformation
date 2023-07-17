@@ -96,7 +96,7 @@ export class ActionCellRendererComponent implements ICellRendererAngularComp {
 
   delete() {
     const dialogRef = this.dialog.open(DeleteComponent, {
-      data: {message:'',rows:selectedRows},
+      data: {message:'',rows:selectedRows,del:'teacher'},
     });
     dialogRef.afterClosed().subscribe((res)=>{
       this.homeComponent.fetchTeachers()

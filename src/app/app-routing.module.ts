@@ -13,6 +13,7 @@ import { AuthGuard } from './shared/authguard.guard';
 import { ViewStaffComponent } from './view-staff/view-staff.component';
 import { EditStaffComponent } from './edit-staff/edit-staff.component';
 import { TeacherHomeComponent } from './teacher-home/teacher-home.component';
+import { EditStudentComponent } from './edit-student/edit-student.component';
 const routes: Routes = [
   { path: 'home', component: HomeComponent, canActivate:[AuthGuard]  },
   { path: 'login', component: LoginComponent },
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'add-staff', component: AddStaffComponent, canActivate:[AuthGuard]},
   { path: 'view-staff', component: ViewStaffComponent, canActivate:[AuthGuard]},
   { path: 'edit-staff', component: EditStaffComponent, canActivate:[AuthGuard]},
+  { path: 'edit-student', component: EditStudentComponent, canActivate:[AuthGuard]},
   { path: 'audit-log', component: AuditLogComponent, canActivate:[AuthGuard]},
   { path: 'tasks', component: TasksComponent, canActivate:[AuthGuard]},
   { path: 'student-view', component: TeacherHomeComponent},
