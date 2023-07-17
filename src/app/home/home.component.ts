@@ -5,7 +5,6 @@ import { MatMenuModule } from '@angular/material/menu';
 import { Router } from '@angular/router';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
 import { ColDef, ICellRendererParams } from 'ag-grid-community';
-import { Papa } from 'ngx-papaparse';
 import { DeleteComponent } from './delete/delete.component';
 @Component({
   selector: 'app-home',
@@ -51,12 +50,7 @@ export class HomeComponent implements OnInit {
 
   onFileChange(event: any){
     const file = event.target.files[0];
-    this.papa.parse(file, {
-      header: true,
-      complete : (result) => {
-        this.rowData = result.data;
-      }
-    })
+
   }
 
   uploadCSV(){
@@ -75,8 +69,7 @@ export class HomeComponent implements OnInit {
   }
 
   constructor(
-    private httpclient:HttpClient,
-    private papa : Papa) {
+    private httpclient:HttpClient) {
    
   }
 }

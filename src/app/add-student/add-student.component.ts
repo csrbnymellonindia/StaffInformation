@@ -139,7 +139,7 @@ export class AddStudentComponent implements OnInit {
     }
     console.log(studentData);
     
-    this.httpclient.post('http://localhost:8080/students/addStud',studentData,{observe:'response'}).subscribe((res:HttpResponse<any>)=>{
+    this.httpclient.post('http://localhost:8080/students/addStud',studentData,{observe:'response',responseType:'text'}).subscribe((res:HttpResponse<any>)=>{
       if(res.status==200){
         this.dialog.open(SuccessdialogComponent,{disableClose:true,data:{message:'Added Student'}});
         setTimeout(()=>{
