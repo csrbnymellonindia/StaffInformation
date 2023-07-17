@@ -62,9 +62,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 
     private boolean validateFeedback(FeedbackModel feedback) {
         // Validate FEEDBACK_IDENTIFIER
-        if (feedback.getFeedbackIdentifier() <= 0) {
-            return false;
-        }
+        
 
         // Validate USER_IDENTIFIER
         if (feedback.getUserIdentifier() <= 0) {

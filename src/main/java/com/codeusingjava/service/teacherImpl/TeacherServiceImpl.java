@@ -2,10 +2,14 @@ package com.codeusingjava.service.teacherImpl;
 
 import com.codeusingjava.model.TeacherMedicalHistoryEntity;
 import com.codeusingjava.model.TeacherModel;
+import com.codeusingjava.model.UserDao;
 import com.codeusingjava.repository.TeacherFamilyFinancialInformationRepository;
 import com.codeusingjava.repository.TeacherMedicalHistoryRepository;
 import com.codeusingjava.repository.TeacherRepository;
+import com.codeusingjava.service.JwtUserDetailsService;
 import com.codeusingjava.service.TeacherService;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +19,9 @@ import java.util.Optional;
 
 @Service
 public class TeacherServiceImpl implements TeacherService {
+    private UserDao teacherUser;
+    @Autowired
+	private JwtUserDetailsService userDetailsService;
 
     private final TeacherRepository teacherRepository;
     private final TeacherMedicalHistoryRepository teacherMedicalHistoryRepository;
@@ -73,7 +80,6 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public ResponseEntity<String> addTeacher(TeacherModel teacherModel) {
         if (validate(teacherModel)) {
-
             teacherRepository.save(teacherModel);
             return ResponseEntity.ok().body("Teacher added successfully!");
         }

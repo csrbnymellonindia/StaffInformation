@@ -47,9 +47,13 @@ public class StudentServiceImpl implements StudentService {
         }
     }
 
+    public void add(StudentModel student){
+        validateStudent(student);
+    }
+
     @Override
     public ResponseEntity<String> updateStudent(int studentIdentifier, StudentModel student) {
-        if (validateStudent(student)) {
+        if (validateStudent1(student)) {
             Optional<StudentModel> optionalStudent = studentRepository.findById(Long.valueOf(studentIdentifier));
                 StudentModel existingStudent = optionalStudent.get();
                 existingStudent.setUdid(student.getUdid());
@@ -73,9 +77,7 @@ public class StudentServiceImpl implements StudentService {
         return ResponseEntity.ok().body("Student deleted successfully!");
     }
 
-    private boolean validateStudent1(StudentModel student) {
-        return true;
-    }
+   
 
     private boolean validateStudent(StudentModel student) {
         
@@ -386,7 +388,9 @@ public class StudentServiceImpl implements StudentService {
 
         return true;
     }
-
+ private boolean validateStudent1(StudentModel student) {
+        return true;
+    }
     private boolean isValidEmail(String email) {
         String emailRegex = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z]{2,6}$";
         Pattern pattern = Pattern.compile(emailRegex);

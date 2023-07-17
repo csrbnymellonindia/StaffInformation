@@ -2,8 +2,12 @@ package com.codeusingjava.controller;
 
 import com.codeusingjava.model.AuditLogModel;
 import com.codeusingjava.model.StudentModel;
+import com.codeusingjava.model.UserDao;
 import com.codeusingjava.service.AuditLogService;
+import com.codeusingjava.service.JwtUserDetailsService;
 import com.codeusingjava.service.StudentService;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,9 +24,10 @@ public class StudentController {
     private final StudentService studentService;
     private final AuditLogService auditLogService;
 
+    @Autowired
+    private JwtUserDetailsService userDetailsService;
 
-
-    public StudentController(StudentService studentService,AuditLogService auditLogService) {
+    public StudentController(StudentService studentService, AuditLogService auditLogService) {
         this.studentService = studentService;
         this.auditLogService = auditLogService;
     }
@@ -31,15 +36,20 @@ public class StudentController {
     public ResponseEntity<String> addStudent(@RequestBody StudentModel student) {
         LocalDateTime currentDateTime = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss[.SSSSSSSSS]");
-        auditLogService.createAuditLogEntry((int) student.getStudentIdentifier(), String.valueOf(currentDateTime.format(formatter)), "Insertion");
+        auditLogService.createAuditLogEntry((int) student.getStudentIdentifier(),
+                String.valueOf(currentDateTime.format(formatter)), "Insertion");
+        userDetailsService.save(new UserDao(student.getStudentFirstName(),String.valueOf(student.getPrimaryContactNumber()), "student"));
+
         return studentService.addStudent(student);
     }
 
     @PutMapping("/updateStud/{studentIdentifier}")
-    public ResponseEntity<String> updateStudent(@PathVariable int studentIdentifier, @RequestBody StudentModel student) {
+    public ResponseEntity<String> updateStudent(@PathVariable int studentIdentifier,
+            @RequestBody StudentModel student) {
         LocalDateTime currentDateTime = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss[.SSSSSSSSS]");
-        auditLogService.createAuditLogEntry(studentIdentifier, String.valueOf(currentDateTime.format(formatter)), "Updation");
+        auditLogService.createAuditLogEntry(studentIdentifier, String.valueOf(currentDateTime.format(formatter)),
+                "Updation");
         return studentService.updateStudent(studentIdentifier, student);
     }
 

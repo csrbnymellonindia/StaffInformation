@@ -58,6 +58,9 @@ public class StudentModel {
     @Column(name = "admittedGrade")
     private String admittedGrade;
 
+    @Column(name = "admittedDivision")
+    private String admittedDivision;
+
     @Column(name = "disabilityIndicator")
     private String disabilityIndicator;
 
@@ -319,6 +322,14 @@ public class StudentModel {
 
     public void setAdmittedGrade(String admittedGrade) {
         this.admittedGrade = admittedGrade;
+    }
+
+    public String getAdmittedDivision() {
+        return admittedDivision;
+    }
+
+    public void setAdmittedDivision(String admittedDivision) {
+        this.admittedDivision = admittedDivision;
     }
 
     public String getDisabilityIndicator() {

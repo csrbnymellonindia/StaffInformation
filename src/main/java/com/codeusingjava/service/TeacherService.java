@@ -8,7 +8,6 @@ import java.util.Optional;
 
 public interface TeacherService {
     List<TeacherModel> findAllTeachers();
-
     Optional<TeacherModel> findById(Long staffId);
     ResponseEntity<String> addTeacher(TeacherModel teacherModel);
     ResponseEntity<String> updateTeacherDetails(Long staffId,TeacherModel teacherModel);
