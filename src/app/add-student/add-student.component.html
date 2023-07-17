@@ -249,7 +249,9 @@
               <mat-label>Aadhaar Card Number</mat-label>
               <input matInput formControlName="studentAadharIdentifier" >
             </mat-form-field>
-
+            <button mat-raised-button color="primary" (click)="fileInput.click()">Upload File</button>
+            <input #fileInput type="file" style="display: none" (change)="onFileSelected($event)">
+           
             <mat-form-field>
               <mat-label>Disability</mat-label>
               <mat-select formControlName="disabilityIndicator">

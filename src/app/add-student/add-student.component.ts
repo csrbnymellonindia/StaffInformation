@@ -16,9 +16,11 @@ import { AuthService } from '../services/auth.service';
 export class AddStudentComponent implements OnInit {
   generalInfoForm!: FormGroup;
   medicalInfoForm!: FormGroup;
+  addlDetails : string | null = null;
   financialAadhaarForm!: FormGroup;
   shortLink : string = "";
   loading: boolean = false;
+  file: File | null = null;
   selectedFile!: File | null;
   datePipe: DatePipe;
   updateCheckboxValue(controlName: string) {
@@ -100,40 +102,61 @@ export class AddStudentComponent implements OnInit {
     }
     return '';
   }
-  onSubmit(){
-    const dateOfBirthValue = this.generalInfoForm.get('studentBirthDate')?.value;
-    const dateOfAdmission = this.generalInfoForm.get('admissionDate')?.value;
-    const studentIdentifier = parseInt(this.generalInfoForm.get('studentIdentifier')?.value);
-    const motherAnnualIncome = parseInt(this.generalInfoForm.get('motherAnnualIncome')?.value);
-    const fatherAnnualIncome = parseInt(this.generalInfoForm.get('fatherAnnualIncome')?.value);
-    // Extract the day, month, and year components from the date
-    const birthDate = new Date(dateOfBirthValue);
-    const studentBirthDayNumber = birthDate.getDate();
-    const studentBirthMonthNumber = birthDate.getMonth() + 1; // Add 1 since months are zero-based
-    const studentBirthYear = birthDate.getFullYear().toString();
-    
-    const admissionDate = new Date(dateOfAdmission);
-    const admissionDayNumber = admissionDate.getDate();
-    const admissionMonthNumber = admissionDate.getMonth() + 1; // Add 1 since months are zero-based
-    const admissionYear = admissionDate.getFullYear().toString();
+  onFileSelected(event : Event) : void{
+    const inputElement = event.target as HTMLInputElement;
+    this.file = inputElement.files && inputElement.files[0];
+  }
+  convertToBase64(): Promise<string> { 
+    return new Promise<string>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64string = reader.result as string;
+        resolve(base64string);
+      };
+      reader.onerror = (error) => reject(error);
+      reader.readAsDataURL(this.file as Blob);
+    })
+  }
+  async onSubmit(): Promise<void>{
+    if(this.file) {
+      const base64string = await this.convertToBase64();
+      this.addlDetails = base64string;
+      const dateOfBirthValue = this.generalInfoForm.get('studentBirthDate')?.value;
+      const dateOfAdmission = this.generalInfoForm.get('admissionDate')?.value;
+      const studentIdentifier = parseInt(this.generalInfoForm.get('studentIdentifier')?.value);
+      const motherAnnualIncome = parseInt(this.generalInfoForm.get('motherAnnualIncome')?.value);
+      const fatherAnnualIncome = parseInt(this.generalInfoForm.get('fatherAnnualIncome')?.value);
+      // Extract the day, month, and year components from the date
+      const birthDate = new Date(dateOfBirthValue);
+      const studentBirthDayNumber = birthDate.getDate();
+      const studentBirthMonthNumber = birthDate.getMonth() + 1; // Add 1 since months are zero-based
+      const studentBirthYear = birthDate.getFullYear().toString();
+      const additionalDetails = this.addlDetails;
+      console.log("additional:", additionalDetails);
+      const admissionDate = new Date(dateOfAdmission);
+      const admissionDayNumber = admissionDate.getDate();
+      const admissionMonthNumber = admissionDate.getMonth() + 1; // Add 1 since months are zero-based
+      const admissionYear = admissionDate.getFullYear().toString();
+      const previousSchoolAdmissionDate = this.formatDate(this.generalInfoForm.get('previousSchoolAdmissionDate')?.value);
+      const previousSchoolLastDate = this.formatDate(this.generalInfoForm.get('previousSchoolLastDate')?.value);
+      this.generalInfoForm.patchValue({
+        studentBirthDayNumber,
+        studentBirthMonthNumber,
+        studentBirthYear,
+        admissionDayNumber,
+        admissionMonthNumber,
+        admissionYear,
+        studentIdentifier,
+        motherAnnualIncome,
+        fatherAnnualIncome,
+        previousSchoolAdmissionDate,
+        previousSchoolLastDate,
+        additionalDetails
+      });
+    }
 
-    const previousSchoolAdmissionDate = this.formatDate(this.generalInfoForm.get('previousSchoolAdmissionDate')?.value);
-    const previousSchoolLastDate = this.formatDate(this.generalInfoForm.get('previousSchoolLastDate')?.value);
 
-
-    this.generalInfoForm.patchValue({
-      studentBirthDayNumber,
-      studentBirthMonthNumber,
-      studentBirthYear,
-      admissionDayNumber,
-      admissionMonthNumber,
-      admissionYear,
-      studentIdentifier,
-      motherAnnualIncome,
-      fatherAnnualIncome,
-      previousSchoolAdmissionDate,
-      previousSchoolLastDate
-    });
+   
     const studentData = {
       ...this.generalInfoForm.value 
     }
