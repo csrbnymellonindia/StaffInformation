@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-audit-log',
@@ -17,17 +18,15 @@ export class AuditLogComponent implements OnInit {
 
   ) {
     // Set the last activity timestamp
-    this.lastActivityTimestamp = '2023-07-13 12:34 PM';
+    this.lastActivityTimestamp = moment().toString();
 
     // Define the column definitions for the ag-Grid
     this.columnDefs = [
-      { headerName: 'S No', field: 'sno', valueGetter: "node.rowIndex + 1" },
-      { headerName: 'Event Name', field: 'changeType' },
-      { headerName: 'Timestamp', field: 'recordUpdateTimestamp' },
-      { headerName: 'User ID', field: 'userIdentifier' }
+      { headerName: 'S No', field: 'sno', valueGetter: "node.rowIndex + 1" ,width:300,suppressSizeToFit: false},
+      { headerName: 'Event Name', field: 'changeType',width:300 ,suppressSizeToFit: false},
+      { headerName: 'Timestamp', field: 'recordUpdateTimestamp',width:400 ,suppressSizeToFit: false},
+      { headerName: 'User ID', field: 'userIdentifier',width:300,suppressSizeToFit: false }
     ];
-
-    // Fetch and set the row data for the ag-Grid
   }
 
   fetchLogs(){
@@ -42,7 +41,6 @@ export class AuditLogComponent implements OnInit {
   onGridReady(param: any) {
     this.gridApi = param.api;
     this.gridApi.sizeColumnsToFit();
-    
   }
 
 }

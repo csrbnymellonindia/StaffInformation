@@ -25,30 +25,30 @@ export class ClassViewComponent {
     {
       headerName: 'S.No',
       field: 'sno',
-      maxWidth: 150,
+      width: 250,
       valueGetter: 'node.rowIndex + 1',
     },
     {
       headerName:'Class Id',
-      maxWidth: 150,
+      width: 250,
       field: 'classIdentifier',
       resizable: true,
     },
     {
       headerName: 'Grade',
-      maxWidth: 150,
+      width: 250,
       field: 'gradeText',
       resizable: true,
     },
     {
       headerName: 'Division',
-      maxWidth: 150,
+      width: 250,
       field: 'divisionText',
       resizable: true,
     },
     {
-      headerName: 'Staff Id',
-      maxWidth: 150,
+      headerName: 'Teacher Name',
+      width: 300,
       field: 'staffIdentifier',
       resizable: true,
     },
@@ -76,6 +76,7 @@ export class ClassViewComponent {
     .subscribe((res) => {
       this.rowData = res;
       console.log(res);
+      console.log("this is row data:", this.rowData);
       this.rowData.forEach((element:any) => {
         element.staffIdentifier = this.teachers.find((teacher:any)=>(teacher.staffId==element.staffIdentifier)).staffName || '';
       });
@@ -91,6 +92,7 @@ export class ClassViewComponent {
   ngOnInit(): void {
     this.httpclient.get('http://localhost:8080/teacherDetails').subscribe((res : any, i = 0) => {
         res.forEach((e: any) => {
+          console.log("response of teacherDetails", res);
           this.teachers = res;
           console.log(res);
           
