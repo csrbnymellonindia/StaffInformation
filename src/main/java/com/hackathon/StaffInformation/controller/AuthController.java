@@ -19,12 +19,18 @@ public class AuthController {
     public static final Long adminRoleId = 1L;
     public static Long currentRoleId;
     public static String userSessionId;
-
     private UserService userService;
 
     @Autowired
     public void setUserService(UserService userService){this.userService = userService;}
 
+    /**
+     * It returns the set of Actions for the given credentials(userId and password) verified from the database.
+     * Password is storeed and obtained in encrypted form. 
+     * @param credentials object containing comit id and password.
+     * @return Set<Actions> corresponding to the role that has been assigned to the given user.
+     * @throws AuthException
+     */
     @PostMapping("/login")
     public ResponseEntity<Set<Actions>> getActionsForUser(@RequestBody Credentials credentials) throws AuthException {
         String enteredUsername = credentials.getUsername();
@@ -41,6 +47,12 @@ public class AuthController {
         }
     }
 
+    /**
+     * It accepts a body of new User object and adds the corresponding details in the database, and assigns the default role of user.
+     * @param userData User Object containing the user data.
+     * @return Returns a String saying "Successfully signed up!" or AuthException saying user already exists.
+     * @throws AuthException
+     */
     @PostMapping("/signup")
     public ResponseEntity<String> createNewUser(@RequestBody User userData) throws AuthException {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(8);
@@ -51,7 +63,13 @@ public class AuthController {
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-
+    
+    /**
+     * It accepts userId and roleId, and assigns the corresponding role to the user if currentRoleId = admin.
+     * @param userId Id of the user whose role needs to be set.
+     * @param roleId RoleId for the user whose role needs to be set.
+     * @throws AuthException
+     */
     @PostMapping("/adminlogin")
     public void setRoles(@RequestParam String userId, @RequestParam Long roleId) throws AuthException{
         userService.setRole(roleId, userId);
