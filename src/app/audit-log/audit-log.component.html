@@ -1,11 +1,18 @@
 <div class="audit-log">
-    <h1>Last Recent Activity</h1>
+    <h3>Last Recent Activity</h3>
     <p class="timestamp">Timestamp: {{ lastActivityTimestamp }}</p>
   
     <ag-grid-angular
       class="ag-theme-material"
       [rowData]="rowData"
       [columnDefs]="columnDefs"
+      [suppressHorizontalScroll]="false"
+        [groupSelectsChildren]="true"
+        [rowGroupPanelShow]="'always'"
+        [rowSelection]="'single'"
+        [statusBar]="statusBar"
+      [pagination]="true"
+      (gridReady)="onGridReady($event)"
     >
     </ag-grid-angular>
   </div>

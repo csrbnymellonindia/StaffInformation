@@ -1,1 +1,24 @@
-<p>ai-tools works!</p>
+<div class="add-classroom-form">
+    <h2>Feedback Analysis AI</h2>
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+       
+       
+        <div style="display: flex;">
+            <div class="form-group">
+                <label for="teacherName">Select Teacher</label>
+                <select id="teacherName" class="form-field" formControlName="teacherName" required>
+                  <option *ngFor="let teacher of teachers" [value]="teacher.staffId">{{ teacher.staffName }}</option>
+                </select>
+            </div>
+            <div class="form-buttons">
+                <button mat-flat-button color="primary" class="add-button" type="submit">Generate</button>
+             </div>
+        </div>
+        
+    </form>
+    <mat-card>
+        
+        <mat-card-content>{{generatedContent}}</mat-card-content>
+        <mat-spinner *ngIf="loading"></mat-spinner>
+      </mat-card>
+</div>

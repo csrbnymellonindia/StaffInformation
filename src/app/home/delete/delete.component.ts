@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-delete',
@@ -33,7 +33,13 @@ export class DeleteComponent {
           }
         );
     } else if(this.data.del == 'class'){
-
+      this.httpclient.delete('http://localhost:8080/classes/deleteClass/' + this.data.rows.classIdentifier,{observe:'response',responseType:'text'} )
+        .subscribe(
+          (res) => {},
+          (err) => {
+            console.log(err);
+          }
+        );
     } else {
       this.httpclient
         .delete('http://localhost:8080/students/deleteStud/' + this.data.rows.studentIdentifier,{observe:'response',responseType:'text'} )
@@ -46,9 +52,11 @@ export class DeleteComponent {
     }
   }
 
-  onNoClick() {}
+  onNoClick() {
+    this.dialogRef.close();
+  }
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { message: string; rows: any;del:string },
-    private httpclient: HttpClient
+    private httpclient: HttpClient,public dialogRef: MatDialogRef<DeleteComponent>
   ) {}
 }

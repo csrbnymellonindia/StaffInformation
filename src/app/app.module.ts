@@ -43,6 +43,7 @@ import { FeedbackComponent } from './feedback/feedback.component';
 import { FeedbackViewComponent } from './feedback-view/feedback-view.component';
 import { AiToolsComponent } from './ai-tools/ai-tools.component';
 import { EditClassComponent } from './edit-class/edit-class.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,6 +56,7 @@ import { EditClassComponent } from './edit-class/edit-class.component';
     AuditLogComponent,
     SuccessdialogComponent,
     TasksComponent,
+    AiToolsComponent,
     LogoutComponent,
     AddStudentComponent,
     TeacherHomeComponent,
@@ -76,6 +78,7 @@ import { EditClassComponent } from './edit-class/edit-class.component';
   imports: [
     HttpClientModule,
     MatDialogModule,
+    MatProgressSpinnerModule,
     BrowserModule,
     IgxAvatarModule,
     MatInputModule,
