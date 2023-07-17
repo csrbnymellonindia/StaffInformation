@@ -27,6 +27,7 @@ const routes: Routes = [
   { path: 'tasks', component: TasksComponent, canActivate:[AuthGuard]},
   { path: 'student-view', component: TeacherHomeComponent},
    { path: 'add-student', component: AddStudentComponent, canActivate:[AuthGuard] },
+   {path : 'class-view', component: AddClassroomComponent, canActivate: [AuthGuard]},
   {path:'',redirectTo:'/home',pathMatch:'full'}
 
 ];

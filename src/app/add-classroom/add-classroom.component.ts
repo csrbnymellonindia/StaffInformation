@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 export class AddClassroomComponent {
   myForm!: FormGroup;
   teachers: string[] = [];
-  obj : any;
+  obj : any = [];
   selectedStaffId : any;
   selectedTeacher!: string;
   constructor(
@@ -25,9 +25,11 @@ export class AddClassroomComponent {
     private router:Router){}
 
     ngOnInit(){
-      this.httpclient.get('http://localhost:8080/teacherDetails').subscribe((res : any) => {
-        this.teachers.push(res.staffName);
-        //console.log(res);
+      this.httpclient.get('http://localhost:8080/teacherDetails').subscribe((res : any, i = 0) => {
+        res.forEach((e: any) => {
+          this.teachers.push(e.staffName);
+        })
+        console.log(this.teachers);
       })
       this.myForm = this.formBuilder.group({
         classId: ['', Validators.required],
@@ -40,35 +42,40 @@ export class AddClassroomComponent {
     onSubmit(){
       if(this.myForm.valid){
         const formData = this.myForm.value;
-       console.log(formData);
+       //console.log(formData);
        this.selectedTeacher = formData.teacherName;
+       console.log(this.selectedTeacher);
        this.httpclient.get('http://localhost:8080/teacherDetails').subscribe((res: any) => {
-        if(res.staffName === this.selectedTeacher){
-          this.selectedStaffId = res.staffId;
-          this.obj.push({
-            "classIdentifier" : formData.classId,
-            "gradeText" : formData.grade,
-            "divisionText" : formData.division,
-            "staffIdentifier" : this.selectedStaffId
-          })
-          this.httpclient.post('http://localhost:8080/classes/addClass', formData, {observe: 'response'}).subscribe((res: HttpResponse<any>) => {
-            if(res.status === 200){
-              this.dialog.open(SuccessdialogComponent,{disableClose:true,data:{message:'Added a Class'}});
-              setTimeout(()=>{
-                this.dialog.closeAll()
-                this.authService.isLoggedVar.next(true);
-              this.router.navigate(['/home'])
-              },2000)
-            }else{
+        res.forEach((e: any) => {
+          if(e.staffName === this.selectedTeacher){
+            this.selectedStaffId = e.staffId;
+            this.obj.push({
+              "classIdentifier" : formData.classId,
+              "gradeText" : formData.grade,
+              "divisionText" : formData.division,
+              "staffIdentifier" : this.selectedStaffId
+            })
+            console.log(this.obj);
+            this.httpclient.post('http://localhost:8080/classes/addClass', this.obj, {observe: 'response'}).subscribe((res: HttpResponse<any>) => {
+              if(res.status === 200){
+                this.dialog.open(SuccessdialogComponent,{disableClose:true,data:{message:'Added a Class'}});
+                setTimeout(()=>{
+                  this.dialog.closeAll()
+                  this.authService.isLoggedVar.next(true);
+                this.router.navigate(['/home'])
+                },2000)
+              }else{
+                this.myForm.setErrors({serverError:true})
+              }
+            },(err)=>{
+              console.log(err);
               this.myForm.setErrors({serverError:true})
-            }
-          },(err)=>{
-            console.log(err);
-            this.myForm.setErrors({serverError:true})
-          })
-        }else {
-          this.markFormGroupTouched(this.myForm);
-        }
+            })
+          }else {
+            this.markFormGroupTouched(this.myForm);
+          }
+        })
+        
        })
       }
     }

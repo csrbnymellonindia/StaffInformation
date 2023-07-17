@@ -59,7 +59,8 @@ import { EditStudentComponent } from './edit-student/edit-student.component';
     AddStudentComponent,
     ActionCellRendererComponent,
     ActionCellRendererComponent2,
-    EditStudentComponent
+    EditStudentComponent,
+    AddClassroomComponent
   ],
   imports: [
     HttpClientModule,
