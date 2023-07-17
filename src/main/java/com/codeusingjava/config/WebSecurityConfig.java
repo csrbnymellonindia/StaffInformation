@@ -21,6 +21,8 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 
+
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -71,9 +73,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
 			return cors;
 		  })
         .and().csrf().disable()
-		.authorizeRequests().antMatchers("/createTeacher","/teacherDetails","/teacherDetails/{staffId}","/updateTeacher/{staffId}","/deleteTeacher/{staffId}","/validate", "/create","/admin_authentication","/teacher_authentication","/students/addStud","/students/getAll","students/getStud/{studentIdentifier}","/updateStud/{studentIdentifier}").permitAll().
+		.authorizeRequests().antMatchers("/createTeacher","/teacherDetails","/teacherDetails/{staffId}","/updateTeacher/{staffId}","/deleteTeacher/{staffId}","/validate", "/create","/admin_authentication","/teacher_authentication","/students/addStud","/students/getAll","/students/deleteStud/{studentIdentifier}","/students/getStud/{studentIdentifier}","/students/updateStud/{studentIdentifier}","/teacherFamilyFinancialDetails","/teacherFamilyFinancialDetails/{staffId}","/addTeacherFamilyFinancialDetails","/updateTeacherFamilyFinancialDetails/{staffId}","/deleteTeacherFamilyFinancialDetails/{staffId}","/teacherMedicalDetails","/teacherMedicalDetails/{staffId}","/addTeacherMedicalHistory","/updateTeacherMedicalHistory/{staffId}","/deleteTeacherMedicalHistory/{staffId}").permitAll().
 					and().csrf().disable()
-		.authorizeRequests().antMatchers("/createTeacher","/teacherDetails","/teacherDetails/{staffId}","/updateTeacher/{staffId}","/deleteTeacher/{staffId}","/validate", "/create","/admin_authentication","/teacher_authentication","/students/addStud","/students/getAll","students/getStud/{studentIdentifier}","/updateStud/{studentIdentifier}","/feedbacks/addFeedback","/feedbacks/getAll","/audit-logs/add, /").permitAll().
+		.authorizeRequests().antMatchers("/createTeacher","/teacherDetails","/teacherDetails/{staffId}","/updateTeacher/{staffId}","/deleteTeacher/{staffId}","/validate", "/create","/admin_authentication","/teacher_authentication","/students/addStud","/students/getAll","/students/deleteStud/{studentIdentifier}","/students/getStud/{studentIdentifier}","/students/updateStud/{studentIdentifier}","/feedbacks/addFeedback","/feedbacks/getAll","/audit-logs/add, /","/teacherFamilyFinancialDetails","/teacherFamilyFinancialDetails/{staffId}","/addTeacherFamilyFinancialDetails","/updateTeacherFamilyFinancialDetails/{staffId}","/deleteTeacherFamilyFinancialDetails/{staffId}","/teacherMedicalDetails","/teacherMedicalDetails/{staffId}","/addTeacherMedicalHistory","/updateTeacherMedicalHistory/{staffId}","/deleteTeacherMedicalHistory/{staffId}").permitAll().
 						anyRequest().authenticated().and().
 						exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS)

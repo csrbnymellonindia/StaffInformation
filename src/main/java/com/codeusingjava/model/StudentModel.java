@@ -11,7 +11,7 @@ public class StudentModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "studentIdentifier")
-    private int studentIdentifier;
+    private long studentIdentifier;
 
     @Column(name = "udid")
     private Integer udid;
@@ -193,7 +193,7 @@ public class StudentModel {
     @Column(name = "WHATSAPP_NUMBER")
     private String whatsappNumber;
 
-    public int getStudentIdentifier() {
+    public long getStudentIdentifier() {
         return studentIdentifier;
     }
 

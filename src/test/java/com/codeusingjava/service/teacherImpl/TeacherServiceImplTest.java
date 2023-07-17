@@ -3,6 +3,7 @@ package com.codeusingjava.service.teacherImpl;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 
+import com.codeusingjava.repository.TeacherFamilyFinancialInformationRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -11,7 +12,6 @@ import org.mockito.Mockito;
 
 import com.codeusingjava.repository.TeacherMedicalHistoryRepository;
 import com.codeusingjava.repository.TeacherRepository;
-import com.codeusingjava.service.TeacherService;
 import com.codeusingjava.model.TeacherModel;
 
 import java.util.ArrayList;
@@ -25,10 +25,10 @@ class TeacherServiceImplTest {
 	@Mock
     private  TeacherMedicalHistoryRepository teacherMedicalHistoryRepository = mock(TeacherMedicalHistoryRepository.class);
 
-	
-	
+
+	private TeacherFamilyFinancialInformationRepository teacherFamilyFinancialInformationRepository;
 	@InjectMocks
-	TeacherServiceImpl teacherServiceImpl = new TeacherServiceImpl(teacherRepository, teacherMedicalHistoryRepository);
+	TeacherServiceImpl teacherServiceImpl = new TeacherServiceImpl(teacherRepository, teacherMedicalHistoryRepository, teacherFamilyFinancialInformationRepository);
 	
 	TeacherModel teacherModel = new TeacherModel();
 	

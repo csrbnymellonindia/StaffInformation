@@ -31,7 +31,7 @@ public class StudentController {
     public ResponseEntity<String> addStudent(@RequestBody StudentModel student) {
         LocalDateTime currentDateTime = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss[.SSSSSSSSS]");
-        auditLogService.createAuditLogEntry(student.getStudentIdentifier(), String.valueOf(currentDateTime.format(formatter)), "Insertion");
+        auditLogService.createAuditLogEntry((int) student.getStudentIdentifier(), String.valueOf(currentDateTime.format(formatter)), "Insertion");
         return studentService.addStudent(student);
     }
 

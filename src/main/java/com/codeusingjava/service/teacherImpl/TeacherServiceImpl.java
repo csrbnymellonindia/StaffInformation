@@ -2,6 +2,7 @@ package com.codeusingjava.service.teacherImpl;
 
 import com.codeusingjava.model.TeacherMedicalHistoryEntity;
 import com.codeusingjava.model.TeacherModel;
+import com.codeusingjava.repository.TeacherFamilyFinancialInformationRepository;
 import com.codeusingjava.repository.TeacherMedicalHistoryRepository;
 import com.codeusingjava.repository.TeacherRepository;
 import com.codeusingjava.service.TeacherService;
@@ -17,13 +18,13 @@ public class TeacherServiceImpl implements TeacherService {
 
     private final TeacherRepository teacherRepository;
     private final TeacherMedicalHistoryRepository teacherMedicalHistoryRepository;
+    private final TeacherFamilyFinancialInformationRepository teacherFamilyFinancialInformationRepository;
 
 
-    public TeacherServiceImpl(TeacherRepository teacherRepository, TeacherMedicalHistoryRepository teacherMedicalHistoryRepository) {
+    public TeacherServiceImpl(TeacherRepository teacherRepository, TeacherMedicalHistoryRepository teacherMedicalHistoryRepository, TeacherFamilyFinancialInformationRepository teacherFamilyFinancialInformationRepository) {
         this.teacherRepository = teacherRepository;
-
-
         this.teacherMedicalHistoryRepository = teacherMedicalHistoryRepository;
+        this.teacherFamilyFinancialInformationRepository = teacherFamilyFinancialInformationRepository;
     }
 
     public boolean validate(TeacherModel teacherModel) {
@@ -110,7 +111,8 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public ResponseEntity<String> deleteTeacherDetails(Long staffId) {
         teacherRepository.deleteById(staffId);
-        teacherMedicalHistoryRepository.deleteById(staffId);
+        // teacherMedicalHistoryRepository.deleteById(staffId);
+        // teacherFamilyFinancialInformationRepository.deleteById(staffId);
         return ResponseEntity.ok().body("Teacher deleted successfully!");
     }
 }

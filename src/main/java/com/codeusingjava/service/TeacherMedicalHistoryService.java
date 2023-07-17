@@ -13,6 +13,6 @@ public interface TeacherMedicalHistoryService {
 
     Optional<TeacherMedicalHistoryEntity> findTeacherMedicalHistoryById(Long id);
     ResponseEntity<String> addTeacherMedicalHistory(TeacherMedicalHistoryEntity teacherMedicalHistoryEntity);
-    ResponseEntity<String> updateTeacherMedicalHistory(Long id,TeacherMedicalHistoryEntity teacherMedicalHistoryEntity);
-    ResponseEntity<String> deleteTeacherMedicalHistory(Long id);
+    ResponseEntity<String> updateTeacherMedicalHistory(Long staffId,TeacherMedicalHistoryEntity teacherMedicalHistoryEntity);
+    ResponseEntity<String> deleteTeacherMedicalHistory(Long staffId);
 }
