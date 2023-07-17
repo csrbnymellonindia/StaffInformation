@@ -55,7 +55,7 @@ export class AddClassroomComponent {
               "staffIdentifier" : this.selectedStaffId
             })
             console.log(this.obj);
-            this.httpclient.post('http://localhost:8080/classes/addClass', this.obj, {observe: 'response'}).subscribe((res: HttpResponse<any>) => {
+            this.httpclient.post('http://localhost:8080/classes/addClass', this.obj[0], {observe: 'response',responseType:'text'}).subscribe((res: HttpResponse<any>) => {
               if(res.status === 200){
                 this.dialog.open(SuccessdialogComponent,{disableClose:true,data:{message:'Added a Class'}});
                 setTimeout(()=>{

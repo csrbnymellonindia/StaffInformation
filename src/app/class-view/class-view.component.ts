@@ -31,25 +31,25 @@ export class ClassViewComponent {
     {
       headerName:'Class Id',
       maxWidth: 150,
-      field: 'classId',
+      field: 'classIdentifier',
       resizable: true,
     },
     {
       headerName: 'Grade',
       maxWidth: 150,
-      field: 'grade',
+      field: 'gradeText',
       resizable: true,
     },
     {
       headerName: 'Division',
       maxWidth: 150,
-      field: 'division',
+      field: 'divisionText',
       resizable: true,
     },
     {
       headerName: 'Staff Id',
       maxWidth: 150,
-      field: 'staffId',
+      field: 'staffIdentifier',
       resizable: true,
     },
   ];
@@ -60,6 +60,7 @@ export class ClassViewComponent {
   };
 
   gridApi: any;
+  teachers: any;
 
   onGridReady(param: any) {
     this.gridApi = param.api;
@@ -75,6 +76,9 @@ export class ClassViewComponent {
     .subscribe((res) => {
       this.rowData = res;
       console.log(res);
+      this.rowData.forEach((element:any) => {
+        element.staffIdentifier = this.teachers.find((teacher:any)=>(teacher.staffId==element.staffIdentifier)).staffName || '';
+      });
     });
   }
   constructor(private httpclient: HttpClient) {
@@ -85,7 +89,17 @@ export class ClassViewComponent {
     this.rowData = [];
   }
   ngOnInit(): void {
+    this.httpclient.get('http://localhost:8080/teacherDetails').subscribe((res : any, i = 0) => {
+        res.forEach((e: any) => {
+          this.teachers = res;
+          console.log(res);
+          
+        })
+      })
     this.fetchClasses();
+    
+
+    
   }
 
   selectedRows: any;
