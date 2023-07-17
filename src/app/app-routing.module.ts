@@ -12,8 +12,8 @@ import { AddStudentComponent } from './add-student/add-student.component';
 import { AuthGuard } from './shared/authguard.guard';
 import { ViewStaffComponent } from './view-staff/view-staff.component';
 import { EditStaffComponent } from './edit-staff/edit-staff.component';
-import { TeacherHomeComponent } from './teacher-home/teacher-home.component';
 import { AddClassroomComponent } from './add-classroom/add-classroom.component';
+import { TeacherHomeComponent } from './teacher-home/teacher-home.component';
 const routes: Routes = [
   { path: 'home', component: HomeComponent, canActivate:[AuthGuard]  },
   { path: 'login', component: LoginComponent },
@@ -23,14 +23,14 @@ const routes: Routes = [
   { path: 'edit-staff', component: EditStaffComponent, canActivate:[AuthGuard]},
   { path: 'audit-log', component: AuditLogComponent, canActivate:[AuthGuard]},
   { path: 'tasks', component: TasksComponent, canActivate:[AuthGuard]},
-  //{ path: '', component: AddClassroomComponent}
+  { path: 'student-view', component: TeacherHomeComponent},
    { path: 'add-student', component: AddStudentComponent, canActivate:[AuthGuard] },
   {path:'',redirectTo:'/home',pathMatch:'full'}
 
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {useHash: true})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

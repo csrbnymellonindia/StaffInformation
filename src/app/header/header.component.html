@@ -6,20 +6,20 @@
   </div>
   <nav class="navbar" *ngIf="isLoggedIn">
     <ul class="navbar-list">
-      <li class="navbar-item">
-        <a routerLink="/" routerLinkActive="active">Home</a>
+      <li class="navbar-item" *ngIf="isAdmin">
+        <a routerLink="/" routerLinkActive="active">Staff View</a>
       </li>
       <li class="navbar-item">
-        <a routerLink="/add-staff" routerLinkActive="active">Add Staff</a>
+        <a routerLink="/student-view" routerLinkActive="active">Student View</a>
       </li>
-      <li class="navbar-item">
+      <li class="navbar-item" >
+        <a routerLink="/class-view" routerLinkActive="active">Class View</a>
+      </li>
+      <li class="navbar-item" *ngIf="isAdmin">
         <a routerLink="/audit-log" routerLinkActive="active">Audit Log</a>
       </li>
       <li class="navbar-item">
         <a routerLink="/ai-tools" routerLinkActive="active">AI Tools</a>
-      </li>
-      <li class="navbar-item">
-        <a routerLink="/tasks" routerLinkActive="active">Tasks</a>
       </li>
       <!-- <li class="navbar-item">
         <a routerLink="/view-staff" routerLinkActive="active">View Staff</a>

@@ -12,21 +12,29 @@ import { SuccessdialogComponent } from '../successdialog/successdialog.component
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
-  message:any;
-  constructor(private formBuilder: FormBuilder,private httpclient:HttpClient,private envservice:EnvService,private router:Router,private dialog:MatDialog,private authservice:AuthService) { }
+  message: any;
+  constructor(
+    private formBuilder: FormBuilder,
+    private httpclient: HttpClient,
+    private envservice: EnvService,
+    private router: Router,
+    private dialog: MatDialog,
+    private authservice: AuthService
+  ) {}
 
   ngOnInit(): void {
+    if (sessionStorage.getItem('username')) {
+      this.authservice.isLoggedVar.next(true);
+      this.router.navigate(['/home']);
+    }
 
-    this.authservice.isLoggedVar.next(true);
-        this.router.navigate(['/home'])
-        
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(4)]]
+      password: ['', [Validators.required, Validators.minLength(4)]],
     });
   }
 
@@ -37,30 +45,41 @@ export class LoginComponent implements OnInit {
   login(): void {
     if (this.loginForm.valid) {
       const password = this.loginForm.get('password')?.value;
-      const username = this.loginForm.get('username')?.value
+      const username = this.loginForm.get('username')?.value;
       // Perform login logic
-      
-      this.httpclient.post('http://localhost:8080/validate',{
-        "username":username,
-        "password":password
-      }).subscribe(async (res:any)=>{
-       await sessionStorage.setItem('token',res.token);
-       await sessionStorage.setItem('username',username);
-       await sessionStorage.setItem('type',res.userType)
-       this.dialog.open(SuccessdialogComponent,{disableClose:true,data:{message:'Logged in'}});
-        setTimeout(()=>{
-          this.dialog.closeAll()
-          this.authservice.isLoggedVar.next(true);
-        this.router.navigate(['/home'])
-        },2000)
-      },(err:any)=>{
-        this.loginForm.get('password')?.setErrors({serverError:true})
-        this.loginForm.get('username')?.setErrors({serverError:true})
-        this.message = "Invalid credentials"
-        console.log(err);
-        
-      });
+
+      this.httpclient
+        .post('http://localhost:8080/validate', {
+          username: username,
+          password: password,
+        })
+        .subscribe(
+          async (res: any) => {
+            await sessionStorage.setItem('token', res.token);
+            await sessionStorage.setItem('username', username);
+            await sessionStorage.setItem('type', res.userType);
+            this.dialog.open(SuccessdialogComponent, {
+              disableClose: true,
+              data: { message: 'Logged in' },
+            });
+            setTimeout(() => {
+              this.dialog.closeAll();
+              this.authservice.userTypeVar.next(res.userType);
+              this.authservice.isLoggedVar.next(true);
+              if (res.userType == 'admin') {
+                this.router.navigate(['/home']);
+              } else {
+                this.router.navigate(['/student-view']);
+              }
+            }, 2000);
+          },
+          (err: any) => {
+            this.loginForm.get('password')?.setErrors({ serverError: true });
+            this.loginForm.get('username')?.setErrors({ serverError: true });
+            this.message = 'Invalid credentials';
+            console.log(err);
+          }
+        );
+    }
   }
 }
-}
-

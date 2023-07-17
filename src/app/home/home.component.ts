@@ -1,9 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatMenuModule } from '@angular/material/menu'; 
 import { Router } from '@angular/router';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
 import { ColDef, ICellRendererParams } from 'ag-grid-community';
 import { Papa } from 'ngx-papaparse';
+import { DeleteComponent } from './delete/delete.component';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -91,7 +94,7 @@ var selectedRows: any;
 })
 export class ActionCellRendererComponent implements ICellRendererAngularComp {
   
-  constructor(private router:Router){
+  constructor(private router:Router,private dialog:MatDialog,private homeComponent:HomeComponent){
 
   }
   agInit(params: ICellRendererParams<any, any, any>): void {
@@ -107,6 +110,12 @@ export class ActionCellRendererComponent implements ICellRendererAngularComp {
   }
 
   delete() {
+    const dialogRef = this.dialog.open(DeleteComponent, {
+      data: {message:'',rows:selectedRows},
+    });
+    dialogRef.afterClosed().subscribe((res)=>{
+      this.homeComponent.fetchTeachers()
+    })
     // ...
   }
   

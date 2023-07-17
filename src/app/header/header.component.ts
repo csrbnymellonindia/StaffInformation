@@ -9,13 +9,19 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit{
   public isLoggedIn: boolean = false;
+  public isAdmin: boolean = false;
   constructor(private router:Router,private authservice:AuthService){
 
   }
   ngOnInit(){
     this.authservice.$loggedInStatus.subscribe((res)=>{
       this.isLoggedIn = res;
-    })
+    });
+    this.authservice.$userTypeObs.subscribe((res)=>{
+      console.log(res);
+      
+      this.isAdmin = res=='admin';
+    });
   }
   logout(){
     sessionStorage.removeItem('token');
