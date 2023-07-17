@@ -21,6 +21,11 @@ public class UserDao {
         return username;
     }
 
+    public UserDao(String username,String password,String type) {
+        this.username = username;
+        this.password = password;
+        this.type = type;
+    }
     public UserDao() {
     }
 

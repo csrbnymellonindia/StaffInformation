@@ -1,5 +1,7 @@
 package com.codeusingjava.config;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,12 +18,20 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
+	@Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOrigins("http://localhost:4200")
+                .allowedMethods("GET", "POST", "PUT", "DELETE")
+                .allowedHeaders("*");
+    }
 	@Autowired
 	private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
@@ -53,8 +63,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		
-		httpSecurity.csrf().disable()
-		.authorizeRequests().antMatchers("/createTeacher","/teacherDetails","/teacherDetails/{staffId}","/updateTeacher/{staffId}","/deleteTeacher/{staffId}","/validate", "/create","/admin_authentication","/teacher_authentication","/students/addStud","/students/getAll","students/getStud/{studentIdentifier}","/updateStud/{studentIdentifier}","/teacherMedicalDetails","/teacherMedicalDetails/{staffId}","/addTeacherMedicalHistory","/updateTeacherMedicalHistory/{staffId}","/deleteTeacherMedicalHistory/{staffId}, /").permitAll().
+		httpSecurity.cors().configurationSource(request -> {
+			var cors = new CorsConfiguration();
+			cors.setAllowedOrigins(List.of("http://localhost:4200", "http://127.0.0.1:80", "http://example.com"));
+			cors.setAllowedMethods(List.of("GET","POST", "PUT", "DELETE", "OPTIONS"));
+			cors.setAllowedHeaders(List.of("*"));
+			return cors;
+		  })
+        .and().csrf().disable()
+		.authorizeRequests().antMatchers("/createTeacher","/teacherDetails","/teacherDetails/{staffId}","/updateTeacher/{staffId}","/deleteTeacher/{staffId}","/validate", "/create","/admin_authentication","/teacher_authentication","/students/addStud","/students/getAll","students/getStud/{studentIdentifier}","/updateStud/{studentIdentifier}").permitAll().
+					and().csrf().disable()
+		.authorizeRequests().antMatchers("/createTeacher","/teacherDetails","/teacherDetails/{staffId}","/updateTeacher/{staffId}","/deleteTeacher/{staffId}","/validate", "/create","/admin_authentication","/teacher_authentication","/students/addStud","/students/getAll","students/getStud/{studentIdentifier}","/updateStud/{studentIdentifier}","/feedbacks/addFeedback","/feedbacks/getAll","/audit-logs/add, /").permitAll().
 						anyRequest().authenticated().and().
 						exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
