@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 export class HeaderComponent implements OnInit{
   public isLoggedIn: boolean = false;
   public isAdmin: boolean = false;
+  public isStudent: boolean = false;
   constructor(private router:Router,private authservice:AuthService){
 
   }
@@ -21,6 +22,7 @@ export class HeaderComponent implements OnInit{
       console.log(res);
       
       this.isAdmin = res=='admin';
+      this.isStudent = res == 'student';
     });
   }
   logout(){

@@ -6,7 +6,11 @@ footer {
     padding: 16px;
     background-color: map_get($colors, lf-bg);
     color: white;
-  
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 98%;
+    align-items: center;
     .school-logo {
       img{
         width: 5rem;

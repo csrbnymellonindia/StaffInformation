@@ -16,6 +16,8 @@ import { AddClassroomComponent } from './add-classroom/add-classroom.component';
 import { TeacherHomeComponent } from './teacher-home/teacher-home.component';
 import { EditStudentComponent } from './edit-student/edit-student.component';
 import { ClassViewComponent } from './class-view/class-view.component';
+import { FeedbackComponent } from './feedback/feedback.component';
+import { FeedbackViewComponent } from './feedback-view/feedback-view.component';
 const routes: Routes = [
   { path: 'home', component: HomeComponent, canActivate:[AuthGuard]  },
   { path: 'login', component: LoginComponent },
@@ -30,6 +32,9 @@ const routes: Routes = [
    { path: 'add-student', component: AddStudentComponent, canActivate:[AuthGuard] },
    {path : 'class-view', component: ClassViewComponent, canActivate: [AuthGuard]},
    {path : 'add-classroom', component: AddClassroomComponent, canActivate : [AuthGuard]},
+   {path : 'feedback', component: FeedbackComponent, canActivate : [AuthGuard]},
+   
+   {path : 'feedback-view', component: FeedbackViewComponent, canActivate : [AuthGuard]},
   {path:'',redirectTo:'/home',pathMatch:'full'}
 
 ];

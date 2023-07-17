@@ -32,9 +32,11 @@ export class DeleteComponent {
             console.log(err);
           }
         );
+    } else if(this.data.del == 'class'){
+
     } else {
       this.httpclient
-        .delete('http://localhost:8080/students/deleteStud/' + this.data.rows.studentIdentifier )
+        .delete('http://localhost:8080/students/deleteStud/' + this.data.rows.studentIdentifier,{observe:'response',responseType:'text'} )
         .subscribe(
           (res) => {},
           (err) => {
