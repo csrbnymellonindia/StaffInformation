@@ -8,7 +8,7 @@
       </div>
       <div class="display-card">
         <div class="card-item">
-            <h5>Welcome {{username }}</h5>
+            <h5>Welcome {{username | titlecase }}!</h5>
         </div>
       </div>
     </div>
@@ -17,7 +17,7 @@
       <div class="search-bar">
         <mat-form-field appearance="outline">
           <mat-icon matPrefix>search</mat-icon>
-          <input matInput placeholder="Search for a teacher" />
+          <input (input)="onType()" [(ngModel)]="searchStudent" matInput placeholder="Search for a student" />
         </mat-form-field>
         <button mat-raised-button  routerLink="/add-student">
         Add Students
@@ -27,7 +27,7 @@
     <div>
       <ag-grid-angular
         width="100"
-        style="height: 350px"
+        style="height: 450px"
         class="ag-theme-material"
         [rowData]="rowData"
         [columnDefs]="columnDefs"
@@ -35,7 +35,10 @@
         [groupSelectsChildren]="true"
         [rowGroupPanelShow]="'always'"
         [isRowSelectable]="isRowSelectable"
-        
+        [statusBar]="statusBar"
+        [pagination]="true"
+         
+        (gridReady)="onGridReady($event)"
         (cellClicked)="onSelectionChanged($event)"
       >
       </ag-grid-angular>

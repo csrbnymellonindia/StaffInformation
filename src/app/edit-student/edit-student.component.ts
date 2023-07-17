@@ -57,6 +57,7 @@ export class EditStudentComponent implements OnInit {
       studentBirthYear: [this.selectedRows.studentBirthYear],
       studentGender: [this.selectedRows.studentGender],
       admittedGrade: [this.selectedRows.admittedGrade],
+      admittedDivision: [this.selectedRows.admittedDivision],
       admissionDate: [this.selectedRows.admissionDate],
       admissionMonthNumber: [this.selectedRows.admissionMonthNumber],
       admissionDayNumber: [this.selectedRows.admissionDayNumber],

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
-import { ColDef, ICellRendererParams } from 'ag-grid-community';
+import { ColDef, ICellRendererParams, StatusPanelDef } from 'ag-grid-community';
 import { DeleteComponent } from '../home/delete/delete.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -69,17 +69,26 @@ export class ClassViewComponent {
     this.gridApi.sizeColumnsToFit();
   }
   onSelectionChanged(event: any) {
-    this.selectedRows = event.data;
+    selectedRows = event.data;
+  
     console.log(this.selectedRows);
   }
-
+  public statusBar: {
+    statusPanels: StatusPanelDef[];
+  } = {
+    statusPanels: [
+      { statusPanel: 'agTotalAndFilteredRowCountComponent', align: 'left' },
+      { statusPanel: 'agTotalRowCountComponent', align: 'center' },
+      { statusPanel: 'agFilteredRowCountComponent' },
+      { statusPanel: 'agSelectedRowCountComponent' },
+      { statusPanel: 'agAggregationComponent' },
+    ],
+  };
   fetchClasses() {
     this.httpclient
       .get('http://localhost:8080/classes/getAll')
       .subscribe((res) => {
         this.rowData = res;
-        console.log(res);
-        console.log('this is row data:', this.rowData);
         this.rowData.forEach((element: any) => {
           element.staffIdentifier =
             this.teachers.find(
@@ -134,7 +143,9 @@ export class ActionCellRendererComponent1 implements ICellRendererAngularComp {
   }
   // Implement the edit and delete functions
   edit() {
-    this.router.navigate(['/edit-staff'],{state:{rows:selectedRows}})
+    console.log(selectedRows);
+    
+    this.router.navigate(['/edit-class'],{state:{rows:selectedRows}})
     // ...
   }
 

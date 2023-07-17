@@ -41,6 +41,8 @@ import { EditStudentComponent } from './edit-student/edit-student.component';
 import { ActionCellRendererComponent1, ClassViewComponent } from './class-view/class-view.component';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { FeedbackViewComponent } from './feedback-view/feedback-view.component';
+import { AiToolsComponent } from './ai-tools/ai-tools.component';
+import { EditClassComponent } from './edit-class/edit-class.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -67,7 +69,9 @@ import { FeedbackViewComponent } from './feedback-view/feedback-view.component';
     ClassViewComponent,
     ActionCellRendererComponent1,
     FeedbackComponent,
-    FeedbackViewComponent
+    FeedbackViewComponent,
+    AiToolsComponent,
+    EditClassComponent
   ],
   imports: [
     HttpClientModule,

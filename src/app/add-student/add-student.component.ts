@@ -44,6 +44,7 @@ export class AddStudentComponent implements OnInit {
     studentBirthYear: [''],
     studentGender: [''],
     admittedGrade:[''],
+    admittedDivision:[''],
     admissionDate: [''],
     admissionMonthNumber: [''],
     admissionDayNumber: [''],

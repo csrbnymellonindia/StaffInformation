@@ -27,7 +27,7 @@
     <div>
       <ag-grid-angular
         width="100"
-        style="height: 350px; width: 100%;"
+        style="height: 450px; width: 100%;"
         class="ag-theme-material"
         [rowData]="rowData"
         [columnDefs]="columnDefs"
@@ -35,8 +35,12 @@
         [groupSelectsChildren]="true"
         [rowGroupPanelShow]="'always'"
         [isRowSelectable]="isRowSelectable"
-        
+        [rowSelection]="'single'"
         (cellClicked)="onSelectionChanged($event)"
+        [cacheQuickFilter]="true"
+      [statusBar]="statusBar"
+      [pagination]="true"
+      (gridReady)="onGridReady($event)"
       >
       </ag-grid-angular>
     </div>
