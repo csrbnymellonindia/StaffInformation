@@ -32,6 +32,7 @@ import { SuccessdialogComponent } from './successdialog/successdialog.component'
 import { ViewStaffComponent } from './view-staff/view-staff.component';
 import { IgxAvatarModule } from 'igniteui-angular';
 import { EditStaffComponent } from './edit-staff/edit-staff.component';
+import { AddClassroomComponent } from './add-classroom/add-classroom.component';
 import { DeleteComponent } from './home/delete/delete.component';
 import { AuthService } from './services/auth.service';
 import { EnvService } from './env.service';

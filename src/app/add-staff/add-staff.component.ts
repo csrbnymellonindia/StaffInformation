@@ -14,7 +14,12 @@ import { Router } from '@angular/router';
 export class AddStaffComponent {
   myForm!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder,private httpclient:HttpClient,private authService:AuthService,private dialog:MatDialog,private router:Router) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private httpclient:HttpClient,
+    private authService:AuthService,
+    private dialog:MatDialog,
+    private router:Router) {}
 
   ngOnInit() {
     this.myForm = this.formBuilder.group({

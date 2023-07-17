@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 
 @Component({
@@ -7,10 +8,13 @@ import { Component } from '@angular/core';
 })
 export class AuditLogComponent {
   lastActivityTimestamp: string;
-  rowData: any[];
+  public rowData : any;
   columnDefs: any[];
 
-  constructor() {
+  constructor(
+    private httpClient : HttpClient,
+
+  ) {
     // Set the last activity timestamp
     this.lastActivityTimestamp = '2023-07-13 12:34 PM';
 
@@ -23,10 +27,10 @@ export class AuditLogComponent {
     ];
 
     // Fetch and set the row data for the ag-Grid
-    this.rowData = [
-      { sno: 1, eventName: 'Event 1', timestamp: '2023-07-13 12:34 PM', comments: 'Comment 1' },
-      { sno: 2, eventName: 'Event 2', timestamp: '2023-07-13 1:23 PM', comments: 'Comment 2' },
-      { sno: 3, eventName: 'Event 3', timestamp: '2023-07-13 2:45 PM', comments: 'Comment 3' }
-    ];
+  }
+
+  ngOnInit(){
   }
 }
+
+
