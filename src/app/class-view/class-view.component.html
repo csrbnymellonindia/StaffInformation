@@ -1,0 +1,43 @@
+<div class="class-view-section">
+    <div class="section1">
+      <div class="background-image">
+        <img
+          src="../../assets/images/backdrop.png"
+          alt="School Background Image"
+        />
+      </div>
+      <div class="display-card">
+        <div class="card-item">
+            <h5>Welcome {{username }}</h5>
+        </div>
+      </div>
+    </div>
+    <div class="section2">
+        
+      <div class="search-bar">
+        <mat-form-field appearance="outline">
+          <mat-icon matPrefix>search</mat-icon>
+          <input matInput placeholder="Search for a teacher" />
+        </mat-form-field>
+        <button mat-raised-button  routerLink="/add-classroom">
+        Add Classes
+        </button>
+      </div>
+    </div>
+    <div>
+      <ag-grid-angular
+        width="100"
+        style="height: 350px"
+        class="ag-theme-material"
+        [rowData]="rowData"
+        [columnDefs]="columnDefs"
+        [suppressHorizontalScroll]="false"
+        [groupSelectsChildren]="true"
+        [rowGroupPanelShow]="'always'"
+        [isRowSelectable]="isRowSelectable"
+        
+        (cellClicked)="onSelectionChanged($event)"
+      >
+      </ag-grid-angular>
+    </div>
+  </div>

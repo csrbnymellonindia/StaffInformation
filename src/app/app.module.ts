@@ -38,6 +38,7 @@ import { AuthService } from './services/auth.service';
 import { EnvService } from './env.service';
 import {MatCheckboxModule} from '@angular/material/checkbox'
 import { EditStudentComponent } from './edit-student/edit-student.component';
+import { ClassViewComponent } from './class-view/class-view.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,7 +61,8 @@ import { EditStudentComponent } from './edit-student/edit-student.component';
     ActionCellRendererComponent,
     ActionCellRendererComponent2,
     EditStudentComponent,
-    AddClassroomComponent
+    AddClassroomComponent,
+    ClassViewComponent
   ],
   imports: [
     HttpClientModule,

@@ -29,7 +29,6 @@ export class AddClassroomComponent {
         res.forEach((e: any) => {
           this.teachers.push(e.staffName);
         })
-        console.log(this.teachers);
       })
       this.myForm = this.formBuilder.group({
         classId: ['', Validators.required],

@@ -15,6 +15,7 @@ import { EditStaffComponent } from './edit-staff/edit-staff.component';
 import { AddClassroomComponent } from './add-classroom/add-classroom.component';
 import { TeacherHomeComponent } from './teacher-home/teacher-home.component';
 import { EditStudentComponent } from './edit-student/edit-student.component';
+import { ClassViewComponent } from './class-view/class-view.component';
 const routes: Routes = [
   { path: 'home', component: HomeComponent, canActivate:[AuthGuard]  },
   { path: 'login', component: LoginComponent },
@@ -27,7 +28,8 @@ const routes: Routes = [
   { path: 'tasks', component: TasksComponent, canActivate:[AuthGuard]},
   { path: 'student-view', component: TeacherHomeComponent},
    { path: 'add-student', component: AddStudentComponent, canActivate:[AuthGuard] },
-   {path : 'class-view', component: AddClassroomComponent, canActivate: [AuthGuard]},
+   {path : 'class-view', component: ClassViewComponent, canActivate: [AuthGuard]},
+   {path : 'add-classroom', component: AddClassroomComponent, canActivate : [AuthGuard]},
   {path:'',redirectTo:'/home',pathMatch:'full'}
 
 ];
