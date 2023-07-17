@@ -37,7 +37,7 @@ public class StudentController {
         LocalDateTime currentDateTime = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss[.SSSSSSSSS]");
         auditLogService.createAuditLogEntry((int) student.getStudentIdentifier(),
-                String.valueOf(currentDateTime.format(formatter)), "Insertion");
+                String.valueOf(currentDateTime.format(formatter)), "Added Student");
         userDetailsService.save(new UserDao(student.getStudentFirstName(),String.valueOf(student.getPrimaryContactNumber()), "student"));
 
         return studentService.addStudent(student);
@@ -49,13 +49,18 @@ public class StudentController {
         LocalDateTime currentDateTime = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss[.SSSSSSSSS]");
         auditLogService.createAuditLogEntry(studentIdentifier, String.valueOf(currentDateTime.format(formatter)),
-                "Updation");
+                "Updated Student");
         return studentService.updateStudent(studentIdentifier, student);
     }
 
     @DeleteMapping("/deleteStud/{studentIdentifier}")
     public ResponseEntity<String> deleteStudent(@PathVariable int studentIdentifier) {
+         LocalDateTime currentDateTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss[.SSSSSSSSS]");
+         auditLogService.createAuditLogEntry(studentIdentifier, String.valueOf(currentDateTime.format(formatter)),
+                "Deleted Student");
         return studentService.deleteStudent(studentIdentifier);
+        
     }
 
     @GetMapping("/getAll")

@@ -46,19 +46,26 @@ public class TeacherController {
     public void addTeacher(@RequestBody TeacherModel teacherModel){
         LocalDateTime currentDateTime = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss[.SSSSSSSSS]");
-        auditLogService.createAuditLogEntry((int) teacherModel.getStaffId(), String.valueOf(currentDateTime.format(formatter)), "Insertion");
+        auditLogService.createAuditLogEntry((int) teacherModel.getStaffId(), String.valueOf(currentDateTime.format(formatter)), "Added Teacher");
         System.out.println("In controller");
         userDetailsService.save(new UserDao(teacherModel.getStaffName(),String.valueOf(teacherModel.getPrimaryContactNumber()),"teacher"));
         teacherService.addTeacher(teacherModel);
     }
     @RequestMapping(value = "/updateTeacher/{staffId}", method = RequestMethod.PUT)
     public void updateTeacher(@PathVariable Long staffId,@RequestBody TeacherModel teacherModel){
-
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss[.SSSSSSSSS]");
+         auditLogService.createAuditLogEntry((int) teacherModel.getStaffId(), String.valueOf(currentDateTime.format(formatter)), "Updated Teacher");
+       
         teacherService.updateTeacherDetails(staffId,teacherModel);
     }
 
     @RequestMapping(value = "/deleteTeacher/{staffId}", method = RequestMethod.DELETE)
     public void deleteTeacherDetails(@PathVariable Long staffId){
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss[.SSSSSSSSS]");
+         auditLogService.createAuditLogEntry(staffId.intValue(), String.valueOf(currentDateTime.format(formatter)), "Deleted Teacher");
+       
         teacherService.deleteTeacherDetails(staffId);
 
     }

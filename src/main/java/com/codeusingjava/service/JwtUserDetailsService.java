@@ -1,6 +1,7 @@
 package com.codeusingjava.service;
 
 import com.codeusingjava.custom.CustomUserDetails;
+import com.codeusingjava.model.StudentModel;
 import com.codeusingjava.model.UserDao;
 import com.codeusingjava.repository.UserRepository;
 
@@ -12,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -48,5 +50,9 @@ public class JwtUserDetailsService implements UserDetailsService {
 		UserDao user=userDao.findByUsername(username);
 		return user.getType();
 	}
+
+    public List<UserDao> findAllUsers() {
+        return userDao.findAll();
+    }
 
 }

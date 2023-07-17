@@ -4,12 +4,15 @@ import com.codeusingjava.config.JwtTokenUtil;
 import com.codeusingjava.custom.CustomUserDetails;
 import com.codeusingjava.model.JwtRequest;
 import com.codeusingjava.model.JwtResponse;
+import com.codeusingjava.model.StudentModel;
 import com.codeusingjava.model.UserDao;
 import com.codeusingjava.service.JwtUserDetailsService;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import org.apache.tomcat.jni.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -59,6 +62,12 @@ public class JwtController {
 			throw new Exception("INVALID_CREDENTIALS", e);
 		}
 	}
+
+	@RequestMapping(value = "/getUsers", method = RequestMethod.GET)
+	public List<UserDao> getAllUsers() {
+        return userDetailsService.findAllUsers();
+    }
+
 	@RequestMapping(value = "/admin_authentication", method = RequestMethod.POST)
 	public boolean adminAuthentication(@RequestBody JwtRequest authenticationRequest) throws Exception {
 		
