@@ -4,22 +4,28 @@
       ><img src="../../assets/images/headerlogo.png" alt="Logo" class="img"
     /></a>
   </div>
-  <nav class="navbar" *ngIf="isLoggedIn">
+  <nav class="navbar" *ngIf="isLoggedIn" >
     <ul class="navbar-list">
-      <li class="navbar-item" *ngIf="isAdmin">
+      <li class="navbar-item" *ngIf="isAdmin && !isStudent">
         <a routerLink="/" routerLinkActive="active">Staff View</a>
       </li>
-      <li class="navbar-item">
+      <li class="navbar-item" *ngIf="!isStudent">
         <a routerLink="/student-view" routerLinkActive="active">Student View</a>
       </li>
-      <li class="navbar-item" >
+      <li class="navbar-item" *ngIf="!isStudent">
         <a routerLink="/class-view" routerLinkActive="active">Class View</a>
       </li>
-      <li class="navbar-item" *ngIf="isAdmin">
+      <li class="navbar-item" *ngIf="isAdmin && !isStudent">
         <a routerLink="/audit-log" routerLinkActive="active">Audit Log</a>
       </li>
-      <li class="navbar-item">
+      <li class="navbar-item" *ngIf="!isStudent">
         <a routerLink="/ai-tools" routerLinkActive="active">AI Tools</a>
+      </li>
+      <li class="navbar-item" *ngIf="isStudent">
+        <a routerLink="/feedback" routerLinkActive="active">Feedback</a>
+      </li>
+      <li class="navbar-item" *ngIf="isAdmin">
+        <a routerLink="/feedback-view" routerLinkActive="active">Feedback</a>
       </li>
       <!-- <li class="navbar-item">
         <a routerLink="/view-staff" routerLinkActive="active">View Staff</a>

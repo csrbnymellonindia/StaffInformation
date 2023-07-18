@@ -1,32 +1,34 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu'; 
 import { Router } from '@angular/router';
-import { ICellRendererAngularComp } from 'ag-grid-angular';
-import { ColDef, ICellRendererParams } from 'ag-grid-community';
-import { Papa } from 'ngx-papaparse';
+import { AgGridAngular, ICellRendererAngularComp } from 'ag-grid-angular';
+import { ColDef, GridApi, ICellRendererParams, StatusPanelDef } from 'ag-grid-community';
 import { DeleteComponent } from './delete/delete.component';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
+
 export class HomeComponent implements OnInit {
   schoolBackgroundImage = 'path/to/school-background-image.jpg';
   searchQuery!: string;
   public rowData: any;
+  public staffSearch:any;
   public isRowSelectable:any=(params:any)=>{
     return !params.data;
   }
   public columnDefs: ColDef[] = [
     { headerName: 'S.No', field: 'sno', maxWidth: 150, valueGetter: "node.rowIndex + 1" },
-    { headerName: 'Staff Name', maxWidth: 150, field: 'staffName',resizable:true },
-    { headerName: 'Primary Contact', maxWidth: 150  , field: 'primaryContactNumber',resizable:true },
-    { headerName: 'Secondary Contact', field: 'secondaryContactNumber',resizable:true },
-    { headerName: 'Address', field: 'address',resizable:true },
-    { headerName: 'Email', maxWidth: 150,field: 'emailId',resizable:true },
-    { headerName: 'Whatsapp No', maxWidth: 150, field: 'whatsappNumber',resizable:true },
+    { headerName: 'Staff Name', maxWidth: 150, field: 'staffName',resizable:true, filter: 'agTextColumnFilter', },
+    { headerName: 'Primary Contact', maxWidth: 150  , field: 'primaryContactNumber',resizable:true,filter: 'agTextColumnFilter' },
+    { headerName: 'Secondary Contact', field: 'secondaryContactNumber',resizable:true,filter: 'agTextColumnFilter' },
+    { headerName: 'Address', field: 'address',resizable:true,filter: 'agTextColumnFilter' },
+    { headerName: 'Email', maxWidth: 150,field: 'emailId',resizable:true,filter: 'agTextColumnFilter' },
+    { headerName: 'Whatsapp No', maxWidth: 150, field: 'whatsappNumber',resizable:true,filter: 'agTextColumnFilter' },
     { headerName:'Actions', cellRenderer:ActionCellRendererComponent}
     // { headerName: 'Action', field: 'action', cellRenderer: 'actionCellRenderer' }
   ];
@@ -38,8 +40,21 @@ export class HomeComponent implements OnInit {
   frameworkComponents: any = {
     actionCellRenderer: ActionCellRendererComponent,
   };
+  public statusBar: {
+    statusPanels: StatusPanelDef[];
+  } = {
+    statusPanels: [
+      { statusPanel: 'agTotalAndFilteredRowCountComponent', align: 'left' },
+      { statusPanel: 'agTotalRowCountComponent', align: 'center' },
+      { statusPanel: 'agFilteredRowCountComponent' },
+      { statusPanel: 'agSelectedRowCountComponent' },
+      { statusPanel: 'agAggregationComponent' },
+    ],
+  };
   gridApi: any;
-
+  onType(){const filterValue = this.staffSearch.toLowerCase(); // Convert search value to lowercase for case-insensitive search
+  this.gridApi.setQuickFilter(filterValue); 
+  }
   fetchTeachers(){
     this.httpclient.get('http://localhost:8080/teacherDetails').subscribe((res)=>{
       this.rowData = res;
@@ -51,12 +66,7 @@ export class HomeComponent implements OnInit {
 
   onFileChange(event: any){
     const file = event.target.files[0];
-    this.papa.parse(file, {
-      header: true,
-      complete : (result) => {
-        this.rowData = result.data;
-      }
-    })
+
   }
 
   uploadCSV(){
@@ -64,10 +74,9 @@ export class HomeComponent implements OnInit {
   }
   onGridReady(param: any) {
     this.gridApi = param.api;
-    this.gridApi.sizeColumnsToFit();
     
   }
-
+  
   onSelectionChanged(event:any){
     selectedRows = event.data;
     console.log(selectedRows);
@@ -75,8 +84,7 @@ export class HomeComponent implements OnInit {
   }
 
   constructor(
-    private httpclient:HttpClient,
-    private papa : Papa) {
+    private httpclient:HttpClient) {
    
   }
 }

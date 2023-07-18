@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
 
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(4)]],
+      password: ['', [Validators.required, Validators.minLength(2)]],
     });
   }
 
@@ -68,14 +68,15 @@ export class LoginComponent implements OnInit {
               this.authservice.isLoggedVar.next(true);
               if (res.userType == 'admin') {
                 this.router.navigate(['/home']);
-              } else {
+              } else if(res.userType == 'teacher') {
                 this.router.navigate(['/student-view']);
+              }else if(res.userType == 'student'){
+                this.router.navigate(['/feedback'])
               }
             }, 2000);
           },
           (err: any) => {
-            this.loginForm.get('password')?.setErrors({ serverError: true });
-            this.loginForm.get('username')?.setErrors({ serverError: true });
+            
             this.message = 'Invalid credentials';
             console.log(err);
           }

@@ -1,17 +1,17 @@
-import { Component } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
+import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { SuccessdialogComponent } from '../successdialog/successdialog.component';
-import { AuthService } from '../services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
+import { SuccessdialogComponent } from '../successdialog/successdialog.component';
 
 @Component({
-  selector: 'app-add-classroom',
-  templateUrl: './add-classroom.component.html',
-  styleUrls: ['./add-classroom.component.scss']
+  selector: 'app-feedback',
+  templateUrl: './feedback.component.html',
+  styleUrls: ['./feedback.component.scss']
 })
-export class AddClassroomComponent {
+export class FeedbackComponent {
   myForm!: FormGroup;
   teachers: string[] = [];
   obj : any = [];
@@ -31,9 +31,7 @@ export class AddClassroomComponent {
         })
       })
       this.myForm = this.formBuilder.group({
-        classId: ['', Validators.required],
-        grade: ['', Validators.required],
-        division: ['', Validators.required],
+        feedback: ['', Validators.required],
         teacherName: ['', Validators.required],
       });
     }
@@ -48,20 +46,18 @@ export class AddClassroomComponent {
         res.forEach((e: any) => {
           if(e.staffName === this.selectedTeacher){
             this.selectedStaffId = e.staffId;
-            this.obj.push({
-              "classIdentifier" : formData.classId,
-              "gradeText" : formData.grade,
-              "divisionText" : formData.division,
-              "staffIdentifier" : this.selectedStaffId
-            })
+            this.obj = {
+              "feedbackDescription" : formData.feedback,
+              "userIdentifier" : this.selectedStaffId
+            }
             console.log(this.obj);
-            this.httpclient.post('http://localhost:8080/classes/addClass', this.obj[0], {observe: 'response',responseType:'text'}).subscribe((res: HttpResponse<any>) => {
+            this.httpclient.post('http://localhost:8080/feedbacks/addFeedback', this.obj, {observe: 'response',responseType:'text'}).subscribe((res: HttpResponse<any>) => {
               if(res.status === 200){
-                this.dialog.open(SuccessdialogComponent,{disableClose:true,data:{message:'Added a Class'}});
+                this.dialog.open(SuccessdialogComponent,{disableClose:true,data:{message:'Added Feedback'}});
                 setTimeout(()=>{
                   this.dialog.closeAll()
                   this.authService.isLoggedVar.next(true);
-                this.router.navigate(['/home'])
+                this.router.navigate(['/feedback'])
                 },2000)
               }else{
                 this.myForm.setErrors({serverError:true})

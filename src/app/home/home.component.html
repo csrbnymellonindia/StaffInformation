@@ -16,7 +16,7 @@
         <span class="number">200</span>
       </div>
       <div class="card-item">
-        <span class="label">Tasks</span>
+        <span class="label">Classes</span>
         <span class="number">10</span>
       </div>
     </div>
@@ -25,12 +25,12 @@
     <div class="search-bar">
       <mat-form-field appearance="outline">
         <mat-icon matPrefix>search</mat-icon>
-        <input matInput placeholder="Search for a teacher" />
+        <input matInput placeholder="Search for a teacher" [(ngModel)]="staffSearch" (input)="onType()"/>
       </mat-form-field>
-      <input type="file" (change)="onFileChange($event)" accept=".csv"/>
+      <!-- <input type="file" (change)="onFileChange($event)" accept=".csv"/>
       <button mat-raised-button (click)="uploadCSV()">
         Upload CSV
-      </button>
+      </button> -->
       <button mat-raised-button  routerLink="/add-staff">
         Add Staff
         </button>
@@ -39,7 +39,7 @@
   <div>
     <ag-grid-angular
       width="100"
-      style="height: 350px"
+      style="height: 450px"
       class="ag-theme-material"
       [rowData]="rowData"
       [columnDefs]="columnDefs"
@@ -49,6 +49,10 @@
       [rowSelection]="'single'"
       (cellClicked)="onSelectionChanged($event)"
       [rowGroupPanelShow]="'always'"
+      [cacheQuickFilter]="true"
+      [statusBar]="statusBar"
+      [pagination]="true"
+      (gridReady)="onGridReady($event)"
     >
     </ag-grid-angular>
   </div>

@@ -1,0 +1,28 @@
+<div class="add-classroom-form">
+    <h2>Edit Classroom</h2>
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="classId">Class Id</label>
+            <input type="text" id="classId" class="form-field" placeholder="Class Id" formControlName="classId" required>
+        </div>
+        <div class="form-group">
+            <label for="grade">Grade</label>
+            <input type="text" id="grade" class="form-field" placeholder="Grade" formControlName="grade" required>
+        </div>
+        <div class="form-group">
+            <label for="division">Division</label>
+            <input type="text" id="division" class="form-field" placeholder="Division" formControlName="division" required>
+        </div>
+
+        <div class="form-group">
+            <label for="teacherName">Teacher Assigned</label>
+            <select id="teacherName" class="form-field" formControlName="teacherName" required>
+              <option *ngFor="let teacher of teachers" [value]="teacher">{{ teacher }}</option>
+            </select>
+        </div>
+        <div class="form-buttons">
+            <a mat-button class="cancel-button" routerLink="/class-view">Cancel</a>
+            <button mat-button class="add-button" type="submit">Save</button>
+         </div>
+    </form>
+</div>

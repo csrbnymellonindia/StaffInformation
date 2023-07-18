@@ -1,0 +1,23 @@
+.audit-log {
+    padding: 24px;
+  
+    h1 {
+      font-size: 50px;
+      font-weight: bold;
+    }
+  
+    .timestamp {
+      margin-bottom: 16px;
+    }
+  
+    .ag-theme-material {
+      height: 400px;
+      width: 100%;
+  
+      .ag-header-cell-label,
+      .ag-cell-value {
+        font-weight: bold;
+      }
+    }
+  }
+  

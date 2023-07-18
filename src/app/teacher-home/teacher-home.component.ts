@@ -1,10 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
-import { ColDef, ICellRendererParams } from 'ag-grid-community';
+import {
+  ColDef,
+  ICellRendererParams,
+  IGroupCellRendererParams,
+  StatusPanelDef,
+} from 'ag-grid-community';
 import { DeleteComponent } from '../home/delete/delete.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { TitleCasePipe } from '@angular/common';
 @Component({
   selector: 'app-teacher-home',
   templateUrl: './teacher-home.component.html',
@@ -12,6 +18,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class TeacherHomeComponent implements OnInit {
   username: string = '';
+  searchStudent: string = '';
   schoolBackgroundImage = 'path/to/school-background-image.jpg';
   searchQuery!: string;
   public isRowSelectable: any = (params: any) => {
@@ -22,61 +29,88 @@ export class TeacherHomeComponent implements OnInit {
     {
       headerName: 'S.No',
       field: 'sno',
-      maxWidth: 150,
       valueGetter: 'node.rowIndex + 1',
     },
     {
       headerName: 'First Name',
-      maxWidth: 150,
       field: 'studentFirstName',
       resizable: true,
     },
     {
       headerName: 'Last Name',
-      maxWidth: 150,
       field: 'studentLastName',
       resizable: true,
     },
     {
-      headerName: 'Primary Contact',
+      headerName: 'Grade',
+      field: 'admittedGrade',
       maxWidth: 150,
+      resizable: true,
+      enableRowGroup: true
+    },
+    {
+      headerName: 'Division',
+      field: 'admittedDivision',
+      resizable: true,
+      enableRowGroup: true
+    },
+    {
+      headerName: 'Primary Contact',
       field: 'primaryContactNumber',
       resizable: true,
     },
     { headerName: 'Address', field: 'currentAddressLine1', resizable: true },
     {
       headerName: 'Email',
-      maxWidth: 150,
       field: 'studentEmailAddress',
       resizable: true,
     },
     {
       headerName: 'Gender',
-      maxWidth: 150,
-      field: 'studentGender',
+      field:'studentGender',
       resizable: true,
+      enableRowGroup: true
     },
     {
       headerName: 'DOB',
-      field:'studentBirthDayNumber',
-      maxWidth: 150,
+      field: 'studentBirthDayNumber',
       resizable: true,
       cellRenderer: 'agGroupCellRenderer',
       cellRendererParams: {
         innerRenderer: (params: any) => {
           console.log(params.data);
-          
-          return (
-            `${params.data.studentBirthDayNumber.toString() + '/'+
-            params.data.studentBirthMonthNumber.toString() + '/' +
-            params.data.studentBirthYear}`
-          );
+
+          return `${
+            params.data.studentBirthDayNumber.toString() +
+            '/' +
+            params.data.studentBirthMonthNumber.toString() +
+            '/' +
+            params.data.studentBirthYear
+          }`;
         },
       },
     },
-    { headerName: 'Actions', cellRenderer: ActionCellRendererComponent2 },
+    {
+      headerName: 'Actions',
+      field:'studentGender',
+      cellRenderer: 'agGroupCellRenderer',
+      cellRendererParams: {
+        innerRenderer: ActionCellRendererComponent2,
+      } as IGroupCellRendererParams,
+    },
     // { headerName: 'Action', field: 'action', cellRenderer: 'actionCellRenderer' }
   ];
+  public statusBar: {
+    statusPanels: StatusPanelDef[];
+  } = {
+    statusPanels: [
+      { statusPanel: 'agTotalAndFilteredRowCountComponent', align: 'left' },
+      { statusPanel: 'agTotalRowCountComponent', align: 'center' },
+      { statusPanel: 'agFilteredRowCountComponent' },
+      { statusPanel: 'agSelectedRowCountComponent' },
+      { statusPanel: 'agAggregationComponent' },
+    ],
+  };
   public defaultColDef: ColDef = {
     flex: 1,
     filter: 'agTextColumnFilter',
@@ -86,6 +120,11 @@ export class TeacherHomeComponent implements OnInit {
     actionCellRenderer: ActionCellRendererComponent2,
   };
   gridApi: any;
+
+  onType() {
+    const filterValue = this.searchStudent.toLowerCase(); // Convert search value to lowercase for case-insensitive search
+    this.gridApi.setQuickFilter(filterValue);
+  }
 
   onGridReady(param: any) {
     this.gridApi = param.api;

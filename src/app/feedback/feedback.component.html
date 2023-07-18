@@ -1,0 +1,21 @@
+<div class="add-classroom-form">
+    <h2>Feedback</h2>
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+       
+        <div class="form-group">
+            <label for="feedback">Feedback</label>
+            <input type="text" id="feedback" class="form-field" placeholder="Feedback description" formControlName="feedback" required>
+        </div>
+
+        <div class="form-group">
+            <label for="teacherName">Teacher</label>
+            <select id="teacherName" class="form-field" formControlName="teacherName" required>
+              <option *ngFor="let teacher of teachers" [value]="teacher">{{ teacher }}</option>
+            </select>
+        </div>
+        <div class="form-buttons">
+            <a mat-button class="cancel-button" routerLink="/home">Cancel</a>
+            <button mat-button class="add-button" type="submit">Add</button>
+         </div>
+    </form>
+</div>

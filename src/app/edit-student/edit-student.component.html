@@ -10,7 +10,10 @@
               <mat-label>Student First Name</mat-label>
               <input matInput formControlName="studentFirstName" >
             </mat-form-field>
-           
+            <mat-form-field>
+              <mat-label>Student Identifier</mat-label>
+              <input matInput formControlName="studentIdentifier" >
+            </mat-form-field>
             
             <mat-form-field>
               <mat-label>Student Last Name</mat-label>
@@ -58,6 +61,10 @@
               <mat-label>Admitted Student Grade</mat-label>
               <input matInput formControlName="admittedGrade" >
             </mat-form-field>
+            <mat-form-field>
+              <mat-label>Admitted Student Division</mat-label>
+              <input matInput formControlName="admittedDivision" >
+            </mat-form-field>
           </div>
 
           <div class="form-column">
@@ -71,55 +78,7 @@
               <input matInput formControlName="motherName" >
             </mat-form-field>
 
-            <mat-form-field>
-              <mat-label>Current Address Line 1</mat-label>
-              <input matInput formControlName="currentAddressLine1" >
-            </mat-form-field>
-
-            <mat-form-field>
-              <mat-label>Current Address Line 2</mat-label>
-              <input matInput formControlName="currentAddressLine2">
-            </mat-form-field>
-
-            <mat-form-field>
-              <mat-label>Current Address City</mat-label>
-              <input matInput formControlName="currentAddressCity" >
-            </mat-form-field>
-
-            <mat-form-field>
-              <mat-label>Current Address State</mat-label>
-              <input matInput formControlName="currentAddressState" >
-            </mat-form-field>
-
-            <mat-form-field>
-              <mat-label>Current Address ZIP Code</mat-label>
-              <input matInput formControlName="currentAddressZipCode" >
-            </mat-form-field>
-
-            <mat-form-field>
-              <mat-label>Permanent Address Line 1</mat-label>
-              <input matInput formControlName="permanentAddressLine1" >
-            </mat-form-field>
-
-            <mat-form-field>
-              <mat-label>Permanent Address Line 2</mat-label>
-              <input matInput formControlName="permanentAddressLine2">
-            </mat-form-field>
-
-            <mat-form-field>
-              <mat-label>Permanent Address City</mat-label>
-              <input matInput formControlName="permanentAddressCity" >
-            </mat-form-field>
-
-            <mat-form-field>
-              <mat-label>Permanent Address State</mat-label>
-              <input matInput formControlName="permanentAddressState" >
-            </mat-form-field>
-
-            <mat-form-field>
-              <mat-label>Permanent Address ZIP Code</mat-label>
-              <input matInput formControlName="permanentAddressZipCode" >
-            </mat-form-field>
+            
           </div>
           <div class="form-column">
             <!-- Existing form fields -->
@@ -169,6 +128,63 @@
           </div>
         </div>
 
+      </mat-tab>
+
+      <mat-tab label="Address Information">
+        <h2>Address Information</h2>
+        <div class="form-row">
+          <div class="form-column">
+        <mat-form-field>
+          <mat-label>Current Address Line 1</mat-label>
+          <input matInput formControlName="currentAddressLine1" >
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Current Address Line 2</mat-label>
+          <input matInput formControlName="currentAddressLine2">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Current Address City</mat-label>
+          <input matInput formControlName="currentAddressCity" >
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Current Address State</mat-label>
+          <input matInput formControlName="currentAddressState" >
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Current Address ZIP Code</mat-label>
+          <input matInput formControlName="currentAddressZipCode" >
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Permanent Address Line 1</mat-label>
+          <input matInput formControlName="permanentAddressLine1" >
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Permanent Address Line 2</mat-label>
+          <input matInput formControlName="permanentAddressLine2">
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Permanent Address City</mat-label>
+          <input matInput formControlName="permanentAddressCity" >
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Permanent Address State</mat-label>
+          <input matInput formControlName="permanentAddressState" >
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Permanent Address ZIP Code</mat-label>
+          <input matInput formControlName="permanentAddressZipCode" >
+        </mat-form-field>
+        </div>
+        </div>
       </mat-tab>
 
       <mat-tab label="Medical Information">
@@ -298,7 +314,7 @@
   </form>
 
   <div class="form-buttons">
-    <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="!generalInfoForm.valid">Update</button>
+    <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="!generalInfoForm.valid">Save</button>
     <button mat-raised-button color="warn" (click)="goBack()">Cancel</button>
   </div>
 </div>
