@@ -107,20 +107,19 @@ export class AddStudentComponent implements OnInit {
     return '';
   }
 
-  onFileSelected(event : any){
-    this.selectedFile = event.target.files[0];
-    console.log("file :", this.selectedFile.name);
-  }
-
-  uploadFile(){
-    // if(this.selectedFile){
-    //   const filePath = `../assets/aadhaar-info/${this.selectedFile.name}`;
-    //   console.log(filePath);
-    //   this.addlDetails = filePath
-    // }else{
-    //   console.warn("no file selected.");
-    // }
-  }
+ onFileSelected(event : any) : void {
+  const file = event.target.files[0];
+  const reader = new FileReader();
+  reader.onload = (e: any) => {
+    const arrayBuffer = e.target.result;
+    const blob = new Blob([arrayBuffer], {type: file?.type });
+    const url = URL.createObjectURL(blob);
+    console.log(url);
+    this.addlDetails = url;
+    console.log(this.addlDetails, typeof this.addlDetails);
+  };
+  reader.readAsArrayBuffer(file);
+ }
   
 
   async onSubmit(): Promise<void>{
@@ -138,7 +137,7 @@ export class AddStudentComponent implements OnInit {
       const admissionDayNumber = admissionDate.getDate();
       const admissionMonthNumber = admissionDate.getMonth() + 1; // Add 1 since months are zero-based
       const admissionYear = admissionDate.getFullYear().toString();
-      const additionalDetails = this.selectedFile;
+      const additionalDetails = this.addlDetails;
       const previousSchoolAdmissionDate = this.formatDate(this.generalInfoForm.get('previousSchoolAdmissionDate')?.value);
       const previousSchoolLastDate = this.formatDate(this.generalInfoForm.get('previousSchoolLastDate')?.value);
       this.generalInfoForm.patchValue({

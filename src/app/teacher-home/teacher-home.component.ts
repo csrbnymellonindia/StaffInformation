@@ -91,6 +91,16 @@ export class TeacherHomeComponent implements OnInit {
       },
     },
     {
+      headerName: 'Aadhar Card',
+      field:'additionalDetails',
+      cellRenderer: 'agGroupCellRenderer',
+      cellRendererParams: {
+        innerRenderer: (params: any) => {
+          return `<a href="${params.data.additionalDetails}" target="_blank">Aadhar link</a>`;
+        },
+      } as IGroupCellRendererParams,
+    },
+    {
       headerName: 'Actions',
       field:'studentGender',
       cellRenderer: 'agGroupCellRenderer',
