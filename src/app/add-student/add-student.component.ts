@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CheckboxControlValueAccessor, FormBuilder, FormGroup, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
@@ -14,14 +14,17 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./add-student.component.scss']
 })
 export class AddStudentComponent implements OnInit {
+
+  @ViewChild('fileInput')
+  fileInput!: ElementRef;
+  selectedFile!: File;
+  addlDetails : string | null = null;
   generalInfoForm!: FormGroup;
   medicalInfoForm!: FormGroup;
-  addlDetails : string | null = null;
   financialAadhaarForm!: FormGroup;
   shortLink : string = "";
   loading: boolean = false;
-  file: File | null = null;
-  selectedFile!: File | null;
+  file: File | null = null
   datePipe: DatePipe;
   updateCheckboxValue(controlName: string) {
     const control = this.generalInfoForm.get(controlName)!;
@@ -103,25 +106,24 @@ export class AddStudentComponent implements OnInit {
     }
     return '';
   }
-  onFileSelected(event : Event) : void{
-    const inputElement = event.target as HTMLInputElement;
-    this.file = inputElement.files && inputElement.files[0];
+
+  onFileSelected(event : any){
+    this.selectedFile = event.target.files[0];
+    console.log("file :", this.selectedFile.name);
   }
-  convertToBase64(): Promise<string> { 
-    return new Promise<string>((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const base64string = reader.result as string;
-        resolve(base64string);
-      };
-      reader.onerror = (error) => reject(error);
-      reader.readAsDataURL(this.file as Blob);
-    })
+
+  uploadFile(){
+    // if(this.selectedFile){
+    //   const filePath = `../assets/aadhaar-info/${this.selectedFile.name}`;
+    //   console.log(filePath);
+    //   this.addlDetails = filePath
+    // }else{
+    //   console.warn("no file selected.");
+    // }
   }
+  
+
   async onSubmit(): Promise<void>{
-    if(this.file) {
-      const base64string = await this.convertToBase64();
-      this.addlDetails = base64string;
       const dateOfBirthValue = this.generalInfoForm.get('studentBirthDate')?.value;
       const dateOfAdmission = this.generalInfoForm.get('admissionDate')?.value;
       const studentIdentifier = parseInt(this.generalInfoForm.get('studentIdentifier')?.value);
@@ -132,12 +134,11 @@ export class AddStudentComponent implements OnInit {
       const studentBirthDayNumber = birthDate.getDate();
       const studentBirthMonthNumber = birthDate.getMonth() + 1; // Add 1 since months are zero-based
       const studentBirthYear = birthDate.getFullYear().toString();
-      const additionalDetails = this.addlDetails;
-      console.log("additional:", additionalDetails);
       const admissionDate = new Date(dateOfAdmission);
       const admissionDayNumber = admissionDate.getDate();
       const admissionMonthNumber = admissionDate.getMonth() + 1; // Add 1 since months are zero-based
       const admissionYear = admissionDate.getFullYear().toString();
+      const additionalDetails = this.selectedFile;
       const previousSchoolAdmissionDate = this.formatDate(this.generalInfoForm.get('previousSchoolAdmissionDate')?.value);
       const previousSchoolLastDate = this.formatDate(this.generalInfoForm.get('previousSchoolLastDate')?.value);
       this.generalInfoForm.patchValue({
@@ -154,32 +155,30 @@ export class AddStudentComponent implements OnInit {
         previousSchoolLastDate,
         additionalDetails
       });
-    }
 
-
-   
-    const studentData = {
-      ...this.generalInfoForm.value 
-    }
-    console.log(studentData);
-    
-    this.httpclient.post('http://localhost:8080/students/addStud',studentData,{observe:'response',responseType:'text'}).subscribe((res:HttpResponse<any>)=>{
-      if(res.status==200){
-        this.dialog.open(SuccessdialogComponent,{disableClose:true,data:{message:'Added Student'}});
-        setTimeout(()=>{
-          this.dialog.closeAll()
-          this.authService.isLoggedVar.next(true);
-        this.router.navigate(['/student-view'])
-        },2000)
-      }else{
-        this.generalInfoForm.setErrors({serverError:true})
+      const studentData = {
+        ...this.generalInfoForm.value 
       }
+      console.log(studentData);
       
-    },(err)=>{
-      console.log(err);
-      
-    })
-  }
+      this.httpclient.post('http://localhost:8080/students/addStud',studentData,{observe:'response',responseType:'text'}).subscribe((res:HttpResponse<any>)=>{
+        if(res.status==200){
+          this.dialog.open(SuccessdialogComponent,{disableClose:true,data:{message:'Added Student'}});
+          setTimeout(()=>{
+            this.dialog.closeAll()
+            this.authService.isLoggedVar.next(true);
+          this.router.navigate(['/student-view'])
+          },2000)
+        }else{
+          this.generalInfoForm.setErrors({serverError:true})
+        }
+        
+      },(err)=>{
+        console.log(err);
+        
+      })
+    }
+
   onFileChange(event: any){
     this.selectedFile = event.target.files[0];
   }

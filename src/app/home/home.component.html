@@ -31,6 +31,11 @@
       <button mat-raised-button (click)="uploadCSV()">
         Upload CSV
       </button> -->
+     <!-- <input type="file" name="file" class="custom-file-input" id="inputGroupFile" required (change) = "csvImport($event)"
+     accept=".csv, application/vnd.
+      openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">   -->
+      <input type="file" #fileInput style="display: none" (change)="csvImport($event)" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+  <button mat-raised-button style="margin-right: 10px;" (click)="fileInput.click()">Upload CSV</button>
       <button mat-raised-button  routerLink="/add-staff">
         Add Staff
         </button>
