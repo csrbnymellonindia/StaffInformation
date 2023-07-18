@@ -4,14 +4,16 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { Router } from '@angular/router';
 import { AgGridAngular, ICellRendererAngularComp } from 'ag-grid-angular';
+
 import {
   ColDef,
   GridApi,
   ICellRendererParams,
   StatusPanelDef,
+  GridOptions
 } from 'ag-grid-community';
 import { DeleteComponent } from './delete/delete.component';
-
+import { read, utils } from 'xlsx';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -24,6 +26,8 @@ export class HomeComponent implements OnInit {
 
   schoolBackgroundImage = 'path/to/school-background-image.jpg';
   searchQuery!: string;
+  gridOptions!: GridOptions;
+
   public rowData: any;
   public staffSearch: any;
   public isRowSelectable: any = (params: any) => {
@@ -105,6 +109,30 @@ export class HomeComponent implements OnInit {
     const filterValue = this.staffSearch.toLowerCase(); // Convert search value to lowercase for case-insensitive search
     this.gridApi.setQuickFilter(filterValue);
   }
+  csvImport(event: any){
+    const files = event.target.files;
+    console.log("files:", files)
+    if(files.length){
+      const file = files[0];
+      console.log("file:", file);
+      const reader = new FileReader();
+      console.log(reader);
+      reader.onload = (eve : any) => {
+        console.log(eve);
+        const wb = read(eve.target.result);
+        //console.log("wb:", wb);
+        const sheets = wb.SheetNames;
+        console.log("sheets:", sheets);
+
+        if(sheets.length){
+          const rows = utils.sheet_to_json(wb.Sheets[sheets[0]]);
+          console.log("rows:...", rows);
+          this.rowData = rows;
+        }
+      };
+      reader.readAsArrayBuffer(file); 
+    }
+  }
   fetchTeachers() {
     this.httpclient
       .get('http://localhost:8080/teacherDetails')
@@ -127,6 +155,12 @@ export class HomeComponent implements OnInit {
       });
     this.fetchTeachers();
   }
+  // onFileSelected(event: any){
+  //   const file : File = event.target.files[0];
+  //   if(file){
+  //     this.parseCSV(file);
+  //   }
+  // }
 
   onFileChange(event: any) {
     const file = event.target.files[0];
