@@ -44,6 +44,8 @@ import { FeedbackViewComponent } from './feedback-view/feedback-view.component';
 import { AiToolsComponent } from './ai-tools/ai-tools.component';
 import { EditClassComponent } from './edit-class/edit-class.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MedicaldataComponent } from './medicaldata/medicaldata.component';
+import { FinancialdataComponent } from './financialdata/financialdata.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -73,7 +75,9 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     FeedbackComponent,
     FeedbackViewComponent,
     AiToolsComponent,
-    EditClassComponent
+    EditClassComponent,
+    MedicaldataComponent,
+    FinancialdataComponent
   ],
   imports: [
     HttpClientModule,

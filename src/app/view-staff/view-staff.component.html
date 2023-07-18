@@ -1,17 +1,62 @@
 <div class="view-staff" autoscroll="true">
-    <div class="flex-right">
-        <a mat-raised-button routerLink="/home">Back</a>
-    </div>
-    <div class="avatar">
-        <igx-avatar icon="person" shape="circle" size="medium"></igx-avatar>
-    </div>
-    <h2>{{staffName}}</h2>
-    <div class="staff-details">
-        <div class="staff-field">Primary Contact Number: <span>{{primaryContactNum}}</span></div>
-        <div class="staff-field">Secondary Contact Number: <span>{{secondaryContactNum}}</span> </div>
-        <div class="staff-field">Email: <span>{{staffEmail}}</span></div>
-        <div class="staff-field">Whatsapp Contact Number: <span>{{staffWAnum}}</span></div>
-        <div class="staff-field">Address: <span>{{staffAddress}}</span></div>
-
-    </div>
+  <div class="flex-right">
+    <a mat-raised-button routerLink="/home">Back</a>
+  </div>
+  <div class="avatar">
+    <igx-avatar icon="person" shape="circle" size="medium"></igx-avatar>
+  </div>
+  <h3>{{ staffName }}</h3>
+  <mat-tab-group>
+    <mat-tab label="General Information">
+        <h2>General Information</h2>
+      <div class="staff-details">
+        <div class="staff-field">
+          Primary Contact Number: <span>{{ primaryContactNum }}</span>
+        </div>
+        <div class="staff-field">
+          Secondary Contact Number: <span>{{ secondaryContactNum }}</span>
+        </div>
+        <div class="staff-field">
+          Email: <span>{{ staffEmail }}</span>
+        </div>
+        <div class="staff-field">
+          Whatsapp Contact Number: <span>{{ staffWAnum }}</span>
+        </div>
+        <div class="staff-field">
+          Address: <span>{{ staffAddress }}</span>
+        </div>
+      </div>
+    </mat-tab>
+    <mat-tab label="Medical Information">
+        <h2>Medical Information</h2>
+        <div class="staff-details">
+            <div class="staff-field">
+              Blood Group: <span>{{ medicalData.bloodGroup }}</span>
+            </div>
+            <div class="staff-field">
+              Height: <span>{{ medicalData.height }}</span>
+            </div>
+            <div class="staff-field">
+              Weight: <span>{{ medicalData.weight }}</span>
+            </div>
+            <div class="staff-field">
+              Differently Abled: <span>{{ medicalData.differentlyAbled }}</span>
+            </div>
+          </div>
+    </mat-tab>
+    <mat-tab label="Financial Information">
+        <h2>Financial Information</h2>
+        <div class="staff-details">
+            <div class="staff-field">
+              Bank Name: <span>{{ financialData.bankName }}</span>
+            </div>
+            <div class="staff-field">
+              Bank IFSC Code: <span>{{ financialData.bankIFSCCode }}</span>
+            </div>
+            <div class="staff-field">
+              Bank Account Number: <span>{{ financialData.bankAccountNumber }}</span>
+            </div>
+          </div>
+    </mat-tab>
+  </mat-tab-group>
 </div>

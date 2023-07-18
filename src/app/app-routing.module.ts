@@ -20,6 +20,8 @@ import { FeedbackComponent } from './feedback/feedback.component';
 import { FeedbackViewComponent } from './feedback-view/feedback-view.component';
 import { AiToolsComponent } from './ai-tools/ai-tools.component';
 import { EditClassComponent } from './edit-class/edit-class.component';
+import { MedicaldataComponent } from './medicaldata/medicaldata.component';
+import { FinancialdataComponent } from './financialdata/financialdata.component';
 const routes: Routes = [
   { path: 'home', component: HomeComponent, canActivate:[AuthGuard]  },
   { path: 'login', component: LoginComponent },
@@ -38,6 +40,9 @@ const routes: Routes = [
    {path : 'feedback', component: FeedbackComponent, canActivate : [AuthGuard]},
    {path : 'ai-tools', component: AiToolsComponent, canActivate : [AuthGuard]},
    {path : 'feedback-view', component: FeedbackViewComponent, canActivate : [AuthGuard]},
+   {path: 'add-staff-medical-data',component:MedicaldataComponent,canActivate:[AuthGuard]},
+   {path: 'add-staff-financials',component:FinancialdataComponent,canActivate:[AuthGuard]},
+   
   {path:'',redirectTo:'/home',pathMatch:'full'}
 
 ];

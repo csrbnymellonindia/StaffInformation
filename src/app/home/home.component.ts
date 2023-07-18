@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit {
   teachersCount = 0;
   studentsCount = 0;
   classCount = 0;
-
+  
   schoolBackgroundImage = 'path/to/school-background-image.jpg';
   searchQuery!: string;
   gridOptions!: GridOptions;
@@ -125,9 +125,20 @@ export class HomeComponent implements OnInit {
         console.log("sheets:", sheets);
 
         if(sheets.length){
+         this.gridApi.showLoadingOverlay();
+
           const rows = utils.sheet_to_json(wb.Sheets[sheets[0]]);
           console.log("rows:...", rows);
-          this.rowData = rows;
+          rows.forEach((e: any,index,array) => {
+            console.log(e);
+            this.httpclient.post('http://localhost:8080/createTeacher', e, {observe: 'response'}).subscribe((res : any) => {
+              console.log(res);
+              if(array.length==index+1){
+                this.gridApi.hideOverlay();
+              }
+            })
+          })
+          this.fetchTeachers();
         }
       };
       reader.readAsArrayBuffer(file); 
@@ -170,6 +181,7 @@ export class HomeComponent implements OnInit {
     const fileInput = document.querySelector('input[type="file"]');
   }
   onGridReady(param: any) {
+    
     this.gridApi = param.api;
   }
 
@@ -191,6 +203,8 @@ var selectedRows: any;
       <button mat-menu-item (click)="view()">View</button>
       <button mat-menu-item (click)="edit()">Edit</button>
       <button mat-menu-item (click)="delete()">Delete</button>
+      <button mat-menu-item (click)="medi()">Add Medical Information</button>
+      <button mat-menu-item (click)="fina()">Add Financial Information</button>
     </mat-menu>
   `,
 })
@@ -209,7 +223,12 @@ export class ActionCellRendererComponent implements ICellRendererAngularComp {
     this.router.navigate(['/edit-staff'], { state: { rows: selectedRows } });
     // ...
   }
-
+  medi(){
+    this.router.navigate(['/add-staff-medical-data'],{state: {rows:selectedRows}});
+  }
+  fina(){
+    this.router.navigate(['/add-staff-financials'],{state: {rows:selectedRows}})
+  }
   delete() {
     const dialogRef = this.dialog.open(DeleteComponent, {
       data: { message: '', rows: selectedRows, del: 'teacher' },

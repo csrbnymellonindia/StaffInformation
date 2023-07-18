@@ -1,0 +1,74 @@
+<div class="add-staff-form">
+    <!-- {
+        "staffId":"2",
+        "bloodGroup":"A+ve",
+        "height":"160",
+        "weight":"50",
+        "differentlyAbled":"true",
+        "disability":"Visually impaired"
+        
+    } -->
+    <h2>Add Staff Medical Detail</h2>
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <input type="text" id="staffId" class="form-field" placeholder="" formControlName="staffId" hidden>
+      </div>
+      <div class="form-group">
+        <label for="bloodGroup">Blood group</label>
+        <input type="text" id="bloodGroup" class="form-field" placeholder="Blood Group" formControlName="bloodGroup" required>
+      </div>
+      
+  <div class="form-group">
+    <label for="height">Height</label>
+    <input
+      type="text"
+      id="height"
+      class="form-field"
+      placeholder="Height (in cm)"
+      formControlName="height"
+      required
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="weight">Weight</label>
+    <input
+      type="text"
+      id="weight"
+      class="form-field"
+      placeholder="Weight (in kgs)"
+      formControlName="weight"
+      required
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="differentlyAbled">Differently Abled</label>
+    <input
+      type="checkbox"
+      id="differentlyAbled"
+      formControlName="differentlyAbled"
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="disability">Disability</label>
+    <input
+      type="text"
+      id="disability"
+      class="form-field"
+      placeholder="Disability"
+      formControlName="disability"
+    />
+  </div>
+    
+      
+    
+      <div class="form-buttons">
+        <a mat-button class="cancel-button" routerLink="/home">Cancel</a>
+        <button mat-button class="add-button" type="submit">Add</button>
+      </div>
+    </form>
+    
+  </div>
+  

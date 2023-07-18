@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -7,7 +8,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./view-staff.component.scss']
 })
 export class ViewStaffComponent {
-  
+  medicalData:any;
+  financialData:any;
   staffName!: String;
   primaryContactNum!: String;
   secondaryContactNum!: String;
@@ -17,7 +19,7 @@ export class ViewStaffComponent {
   staffProfileURL!: String;
   selectedRows: any;
 
-  constructor(private router:Router){
+  constructor(private router:Router,private httpclient:HttpClient){
     
     this.selectedRows = this.router.getCurrentNavigation()?.extras.state?.['rows'];
     this.staffName = this.selectedRows.staffName;
@@ -28,5 +30,17 @@ export class ViewStaffComponent {
     this.staffProfileURL = this.selectedRows.staffName.split(" ").map((n:any)=>n[0]).join(".");
     this.staffWAnum = this.selectedRows.whatsappNumber;
     
+    this.httpclient.get('http://localhost:8080/teacherMedicalDetails/'+this.selectedRows.staffId).subscribe((res)=>{
+      this.medicalData = res;
+    },(err)=>{
+      console.log(err);
+    })
+
+    this.httpclient.get('http://localhost:8080/teacherFamilyFinancialDetails/'+this.selectedRows.staffId).subscribe((res)=>{
+      this.financialData = res;
+    },(err)=>{
+      console.log(err);
+    })
+
   }
 }
