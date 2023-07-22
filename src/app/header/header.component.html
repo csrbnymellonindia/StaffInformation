@@ -18,7 +18,7 @@
       <li class="navbar-item" *ngIf="isAdmin && !isStudent">
         <a routerLink="/audit-log" routerLinkActive="active">Audit Log</a>
       </li>
-      <li class="navbar-item" *ngIf="!isStudent">
+      <li class="navbar-item" *ngIf="isAdmin">
         <a routerLink="/ai-tools" routerLinkActive="active">AI Tools</a>
       </li>
       <li class="navbar-item" *ngIf="isStudent">
